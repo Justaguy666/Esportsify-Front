@@ -1,0 +1,2038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Esportsify - Choose Your Battlefield</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../dist/output.css">
+    
+    <!-- Game Card Hover Effects -->
+    <style>
+        .game-card {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: center center;
+        }
+        
+        .game-card:hover {
+            transform: translateY(-12px) scale(1.05);
+            box-shadow: 
+                0 25px 50px rgba(61, 90, 241, 0.4),
+                0 0 0 1px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+        
+        .game-card:hover .game-image {
+            transform: scale(1.1);
+        }
+        
+        .game-card:hover .game-overlay {
+            opacity: 0.3;
+        }
+        
+        .game-card:hover .game-gradient {
+            opacity: 0.9;
+        }
+        
+        .game-card:hover .game-title {
+            transform: translateY(-4px);
+            color: #ffffff;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+        
+        .game-card:hover .game-border {
+            background: linear-gradient(45deg, #8b5cf6, #3b82f6, #06b6d4, #8b5cf6);
+            background-size: 300% 300%;
+            animation: borderGlow 2s ease infinite;
+        }
+        
+        .game-image {
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .game-overlay {
+            transition: opacity 0.4s ease;
+        }
+        
+        .game-gradient {
+            transition: opacity 0.4s ease;
+        }
+        
+        .game-title {
+            transition: all 0.3s ease;
+        }
+        
+        .game-border {
+            transition: all 0.4s ease;
+        }
+        
+        @keyframes borderGlow {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+        
+        /* Stagger animation delay for cards */
+        .game-card:nth-child(1) { animation-delay: 0.1s; }
+        .game-card:nth-child(2) { animation-delay: 0.2s; }
+        .game-card:nth-child(3) { animation-delay: 0.3s; }
+        .game-card:nth-child(4) { animation-delay: 0.4s; }
+        .game-card:nth-child(5) { animation-delay: 0.5s; }
+        .game-card:nth-child(6) { animation-delay: 0.6s; }
+        
+        /* Hover ripple effect */
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 70%);
+            transition: all 0.6s ease;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        
+        .game-card:hover::before {
+            width: 120%;
+            height: 120%;
+        }
+        
+        /* Card shine effect */
+        .game-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            transform: rotate(45deg) translateX(-100%);
+            transition: transform 0.8s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .game-card:hover::after {
+            transform: rotate(45deg) translateX(100%);
+        }
+
+        /* Dropdown Animations */
+        .dropdown-enter {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+            transition: all 0.2s ease;
+        }
+        
+        .dropdown-enter-active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .dropdown-exit {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            transition: all 0.15s ease;
+        }
+        
+        .dropdown-exit-active {
+            opacity: 0;
+            transform: translateY(-10px) scale(0.95);
+        }
+        
+        /* Search suggestions hover */
+        .search-suggestion:hover {
+            background: rgba(91,70,229,0.2) !important;
+            color: white !important;
+        }
+        
+        /* Notification item hover */
+        .notification-item:hover {
+            background: rgba(91,70,229,0.1) !important;
+        }
+        
+        /* Sidebar menu items hover effects */
+        .sidebar-menu-item {
+            transition: all 0.2s ease !important;
+        }
+        
+        .sidebar-menu-item:hover {
+            background: rgba(91,70,229,0.2) !important;
+            transform: translateX(4px) !important;
+            color: white !important;
+        }
+        
+        .sidebar-menu-item:hover svg {
+            color: #5B46E5 !important;
+        }
+        
+        /* Logout button special styling */
+        #logout-btn {
+            transition: all 0.2s ease !important;
+        }
+        
+        #logout-btn:hover {
+            background: rgba(239, 68, 68, 0.1) !important;
+            transform: translateX(4px) !important;
+            color: #EF4444 !important;
+        }
+        
+        #logout-btn:hover svg {
+            color: #EF4444 !important;
+        }
+    </style>
+</head>
+<body class="bg-[#0F0F23] text-white min-h-screen flex flex-col">
+    <!-- HEADER - DIRECT EMBED -->
+    <!-- ESPORTSIFY HEADER - FINAL CLEAN VERSION -->
+    <header style="position: fixed; top: 0; left: 0; width: 100%; height: 103px; z-index: 50; background: linear-gradient(to right, #1A1A2E, #16213E, #0F0F23); border-bottom: 2px solid #3D5AF1; box-shadow: 0 4px 23px rgba(61,90,241,0.3); min-width: 1000px;">
+      <div style="height: 100%; display: flex; align-items: center; justify-content: space-between; padding: 0 24px;">
+        
+        <!-- LEFT: Hamburger + Logo -->
+        <div style="display: flex; align-items: center; gap: 16px; min-width: 200px;">
+          <!-- Hamburger -->
+          <button 
+            id="hamburger-btn" 
+            style="width: 40px; height: 32px; background: rgba(91,70,229,0.2); border-radius: 8px; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center;" 
+            aria-label="Menu"
+          >
+            <div style="width: 16px; height: 2px; background: #5B46E5; border-radius: 1px; margin-bottom: 4px;"></div>
+            <div style="width: 16px; height: 2px; background: #5B46E5; border-radius: 1px; margin-bottom: 4px;"></div>
+            <div style="width: 16px; height: 2px; background: #5B46E5; border-radius: 1px;"></div>
+          </button>
+
+          <!-- Logo -->
+          <a href="./index.html" style="display: flex; align-items: center; background: rgba(91,70,229,0.2); padding: 12px 24px; border-radius: 16px; text-decoration: none;">
+            <img src="../assets/images/logo.png" alt="Esportsify Logo" style="width: 24px; height: 16px; margin-right: 8px; object-fit: contain;" />
+            <span style="font-weight: bold; font-size: 20px; letter-spacing: 0.05em; color: white;">
+              <span style="color: #5B46E5;">E</span>SPORT<span style="color: #5B46E5;">SIFY</span>
+            </span>
+          </a>
+        </div>
+
+        <!-- RIGHT: SIMPLE LAYOUT -->
+        <div style="display: flex; gap: 20px; align-items: center;">
+          
+          <!-- SEARCH -->
+          <div style="position: relative;">
+            <div style="width: 240px; height: 40px; background: rgba(91,70,229,0.1); border: 1px solid #3D5AF1; border-radius: 8px; display: flex; align-items: center; padding: 0 12px;">
+              <input 
+                type="text" 
+                id="search-input" 
+                placeholder="Search..." 
+                style="background: transparent; color: #A5B4FC; font-size: 14px; width: 100%; outline: none; border: none;" 
+              />
+              <button 
+                id="search-btn" 
+                style="margin-left: 8px; padding: 4px; background: transparent; border: none; cursor: pointer;"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" style="width: 16px; height: 16px; color: #A5B4FC;" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M5 11a6 6 0 1112 0 6 6 0 01-12 0z" />
+                </svg>
+              </button>
+            </div>
+            <!-- Search Dropdown -->
+            <div id="search-dropdown" style="position: absolute; top: 100%; left: 0; margin-top: 8px; background: linear-gradient(to right, #0F0F23, #16213E, #1A1A2E); border: 1px solid #3D5AF1; border-radius: 8px; max-height: 280px; overflow-y: auto; display: none; width: 240px; z-index: 1000;">
+              <div style="padding: 12px;">
+                <div id="search-games"></div>
+                <div id="search-tournaments"></div>
+                <div id="search-popular">
+                  <h4 style="font-size: 12px; color: #A5B4FC; margin-bottom: 8px;">Popular</h4>
+                  <button style="display: block; width: 100%; text-align: left; padding: 8px; color: #A5B4FC; background: transparent; border: none; cursor: pointer;" class="search-suggestion" data-query="League of Legends">League of Legends</button>
+                  <button style="display: block; width: 100%; text-align: left; padding: 8px; color: #A5B4FC; background: transparent; border: none; cursor: pointer;" class="search-suggestion" data-query="Counter-Strike 2">Counter-Strike 2</button>
+                  <button style="display: block; width: 100%; text-align: left; padding: 8px; color: #A5B4FC; background: transparent; border: none; cursor: pointer;" class="search-suggestion" data-query="Valorant">Valorant</button>
+                </div>
+                <div id="search-no-results" style="display: none; text-align: center; padding: 12px; color: #A5B4FC;">No results found</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- BELL -->
+          <div style="position: relative;">
+            <button 
+              id="notification-btn" 
+              style="width: 40px; height: 40px; border: 1px solid #3D5AF1; background: rgba(91,70,229,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer;" 
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" style="height: 20px; width: 20px; color: #A5B4FC;" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3c0 .386-.149.735-.405 1.005L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+              <span id="notification-badge" style="position: absolute; top: -4px; right: -4px; width: 16px; height: 16px; background: linear-gradient(to right, #ef4444, #dc2626); color: white; font-size: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600;">3</span>
+            </button>
+            <!-- Notification Dropdown -->
+            <div id="notifications-dropdown" style="position: absolute; top: 100%; right: 0; margin-top: 8px; background: linear-gradient(to right, #0F0F23, #16213E, #1A1A2E); border: 1px solid #3D5AF1; border-radius: 8px; display: none; width: 280px; z-index: 1000;">
+              <div style="padding: 12px; border-bottom: 1px solid rgba(61,90,241,0.3); display: flex; justify-content: space-between; align-items: center;">
+                <h3 style="color: white; font-weight: 600; font-size: 14px;">Notifications</h3>
+                <button id="mark-all-read" style="font-size: 12px; color: #5B46E5; background: transparent; border: none; cursor: pointer;">Mark all as read</button>
+              </div>
+              <div id="notifications-list" style="max-height: 288px; overflow-y: auto;">
+                <!-- Match Started Notification -->
+                <div style="padding: 12px; border-bottom: 1px solid rgba(61,90,241,0.1); display: flex; gap: 12px;" class="notification-item" data-read="false">
+                  <div style="width: 28px; height: 28px; background: linear-gradient(to right, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 12px; height: 12px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9 5a9 9 0 1118 0 9 9 0 01-18 0z"></path>
+                    </svg>
+                  </div>
+                  <div style="flex: 1;">
+                    <p style="font-size: 14px; color: white; font-weight: 500;">Match Started</p>
+                    <p style="font-size: 12px; color: #A5B4FC; margin-top: 4px;">T1 vs G2 - LoL Worlds 2025 has begun!</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 4px;">15 minutes ago</p>
+                  </div>
+                  <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;" class="notification-dot"></div>
+                </div>
+                
+                <!-- Match Result Notification -->
+                <div style="padding: 12px; border-bottom: 1px solid rgba(61,90,241,0.1); display: flex; gap: 12px;" class="notification-item" data-read="false">
+                  <div style="width: 28px; height: 28px; background: linear-gradient(to right, #3b82f6, #1d4ed8); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 12px; height: 12px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div style="flex: 1;">
+                    <p style="font-size: 14px; color: white; font-weight: 500;">Match Finished</p>
+                    <p style="font-size: 12px; color: #A5B4FC; margin-top: 4px;">Fnatic 2-1 Team Liquid - CS2 Major Final</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 4px;">2 hours ago</p>
+                  </div>
+                  <div style="width: 8px; height: 8px; background: #3b82f6; border-radius: 50%;" class="notification-dot"></div>
+                </div>
+                
+                <!-- Match Started Notification -->
+                <div style="padding: 12px; border-bottom: 1px solid rgba(61,90,241,0.1); display: flex; gap: 12px;" class="notification-item" data-read="false">
+                  <div style="width: 28px; height: 28px; background: linear-gradient(to right, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 12px; height: 12px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9 5a9 9 0 1118 0 9 9 0 01-18 0z"></path>
+                    </svg>
+                  </div>
+                  <div style="flex: 1;">
+                    <p style="font-size: 14px; color: white; font-weight: 500;">Match Started</p>
+                    <p style="font-size: 12px; color: #A5B4FC; margin-top: 4px;">Cloud9 vs 100 Thieves - Valorant Champions</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 4px;">45 minutes ago</p>
+                  </div>
+                  <div style="width: 8px; height: 8px; background: #10b981; border-radius: 50%;" class="notification-dot"></div>
+                </div>
+                
+                <!-- Match Result Notification -->
+                <div style="padding: 12px; display: flex; gap: 12px;" class="notification-item" data-read="true">
+                  <div style="width: 28px; height: 28px; background: linear-gradient(to right, #3b82f6, #1d4ed8); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 12px; height: 12px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                  </div>
+                  <div style="flex: 1;">
+                    <p style="font-size: 14px; color: white; font-weight: 500;">Match Finished</p>
+                    <p style="font-size: 12px; color: #A5B4FC; margin-top: 4px;">TSM 3-0 FaZe - Apex Legends Championship</p>
+                    <p style="font-size: 12px; color: #666; margin-top: 4px;">1 day ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- AVATAR - SUPER SIMPLE -->
+          <div 
+            id="avatar-btn" 
+            style="
+              width: 48px; 
+              height: 48px; 
+              border-radius: 50%; 
+              border: 2px solid #3D5AF1; 
+              background: linear-gradient(to right, #8b5cf6, #3b82f6);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              font-weight: bold;
+              font-size: 18px;
+              cursor: pointer;
+              position: relative;
+              overflow: hidden;
+            "
+          >
+            <img 
+              id="header-avatar-img" 
+              src="../assets/images/user.png" 
+              style="
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%; 
+                height: 100%; 
+                object-fit: cover;
+                border-radius: 50%;
+              " 
+              onload="console.log('✅ MAIN: Avatar loaded successfully!'); this.style.display='block'; this.nextElementSibling.style.display='none';" 
+              onerror="console.log('❌ MAIN: Avatar failed to load!'); this.style.display='none'; this.nextElementSibling.style.display='flex';" 
+            />
+            <span id="avatar-fallback" style="position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;">U</span>
+          </div>
+
+          <!-- LOGIN BUTTON (Hidden by default) -->
+          <button 
+            id="login-btn" 
+            style="
+              display: none;
+              background: linear-gradient(to right, #5B46E5, #3D5AF1);
+              color: white;
+              border: none;
+              border-radius: 12px;
+              padding: 12px 24px;
+              font-weight: 600;
+              font-size: 16px;
+              cursor: pointer;
+              transition: all 0.3s ease;
+              box-shadow: 0 4px 12px rgba(91, 70, 229, 0.3);
+            "
+            onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 16px rgba(91, 70, 229, 0.4)';"
+            onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 12px rgba(91, 70, 229, 0.3)';"
+          >
+            Login
+          </button>
+
+        </div>
+        
+      </div>
+    </header>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" style="position: fixed; top: 0; left: -280px; width: 280px; height: 100vh; background: linear-gradient(to bottom, #1A1A2E, #16213E, #0F0F23); border-right: 2px solid #3D5AF1; z-index: 60; transition: left 0.3s ease; overflow-y: auto;">
+      <div style="padding: 24px;">
+        
+        <!-- Sidebar Header with Hamburger + Logo -->
+        <div style="display: flex; align-items: center; margin-bottom: 32px; position: relative; height: 48px;">
+          <!-- Hamburger Menu -->
+          <button id="sidebar-close" style="width: 40px; height: 32px; background: rgba(91,70,229,0.2); border-radius: 8px; border: none; cursor: pointer; display: flex; flex-direction: column; justify-content: center; align-items: center; position: absolute; left: 0; z-index: 10;">
+            <div style="width: 16px; height: 2px; background: #5B46E5; border-radius: 1px; margin-bottom: 4px;"></div>
+            <div style="width: 16px; height: 2px; background: #5B46E5; border-radius: 1px; margin-bottom: 4px;"></div>
+            <div style="width: 16px; height: 2px; background: #5B46E5; border-radius: 1px;"></div>
+          </button>
+          
+          <!-- Logo - Positioned to the right of hamburger -->
+          <div style="margin-left: 56px; display: flex; justify-content: flex-start;">
+            <div style="background: rgba(91,70,229,0.2); padding: 8px 16px; border-radius: 12px; display: flex; align-items: center;">
+              <img src="../assets/images/logo.png" alt="Esportsify Logo" style="width: 20px; height: 14px; margin-right: 6px; object-fit: contain;" />
+              <span style="font-weight: bold; font-size: 16px; letter-spacing: 0.05em; color: white;">
+                <span style="color: #5B46E5;">E</span>SPORT<span style="color: #5B46E5;">SIFY</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- User Profile -->
+        <div id="user-profile-section" style="display: flex; align-items: center; margin-bottom: 32px; padding: 16px; background: rgba(91,70,229,0.1); border-radius: 12px; border: 1px solid rgba(61,90,241,0.3);">
+          <!-- Avatar - Same size as header -->
+          <div style="width: 48px; height: 48px; border-radius: 50%; border: 2px solid #3D5AF1; background: linear-gradient(to right, #8b5cf6, #3b82f6); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 18px; position: relative; overflow: hidden;">
+            <img src="../assets/images/user.png" alt="User Avatar" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; border-radius: 50%;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+            <span style="position: relative; z-index: 1; display: flex; align-items: center; justify-content: center;">J</span>
+          </div>
+          <div style="margin-left: 12px; flex: 1;">
+            <p style="color: white; font-weight: 600; margin: 0; font-size: 16px;">John Doe</p>
+            <p style="color: #A5B4FC; font-size: 14px; margin: 0;">@john_doe</p>
+          </div>
+          <!-- Edit Profile Button with Hover Effect -->
+          <button id="edit-profile-btn" style="background: rgba(91,70,229,0.2); border: 1px solid rgba(61,90,241,0.3); border-radius: 6px; color: #A5B4FC; cursor: pointer; padding: 8px; display: flex; align-items: center; justify-content: center; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(91,70,229,0.3)'; this.style.color='#FFFFFF'; this.style.transform='scale(1.05)'; this.style.borderColor='#5B46E5';" onmouseout="this.style.background='rgba(91,70,229,0.2)'; this.style.color='#A5B4FC'; this.style.transform='scale(1)'; this.style.borderColor='rgba(61,90,241,0.3)';">
+            <svg style="width: 16px; height: 16px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path>
+            </svg>
+          </button>
+        </div>
+        
+        <!-- Navigation Menu -->
+        <nav>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li id="schedule-item" style="margin-bottom: 8px;">
+              <a href="#" id="schedule-btn" style="display: flex; align-items: center; padding: 12px 16px; color: #A5B4FC; text-decoration: none; border-radius: 8px; transition: all 0.2s;">
+                <svg style="width: 20px; height: 20px; margin-right: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                </svg>
+                Schedule
+              </a>
+            </li>
+            <li id="games-item" style="margin-bottom: 8px;">
+              <a href="#" id="games-btn" style="display: flex; align-items: center; padding: 12px 16px; color: #A5B4FC; text-decoration: none; border-radius: 8px; transition: all 0.2s;">
+                <svg style="width: 20px; height: 20px; margin-right: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                </svg>
+                Games
+              </a>
+            </li>
+            <li id="logout-item" style="margin-bottom: 8px;">
+              <a href="#" id="logout-btn" style="display: flex; align-items: center; padding: 12px 16px; color: #EF4444; text-decoration: none; border-radius: 8px; transition: all 0.2s; cursor: pointer;">
+                <svg style="width: 20px; height: 20px; margin-right: 12px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                </svg>
+                Log out
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <!-- MAIN CONTENT WRAPPER -->
+    <div id="main-wrapper" style="transition: margin-left 0.3s ease;">
+      <!-- OVERLAY -->
+      <div id="overlay" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 55; display: none;"></div>
+
+      <!-- LOGIN/REGISTER POPUP - LOADED DYNAMICALLY BY AUTH COMPONENT -->
+
+      <!-- MAIN -->
+      <main class="bg-[#0F0F23] text-indigo-300 font-['Inter'] w-full p-8 pt-32 relative flex-grow">
+          <section class="relative w-full max-w-[1440px] mx-auto">
+              <!-- Slogan / Title -->
+              <div class="text-center">
+                  <h2 class="font-inter font-bold text-[64px] leading-tight text-white">
+                      <span>Choose Your </span>
+                      <span class="bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent">Battlefield</span>
+                  </h2>
+                  <p class="mt-6 font-rajdhani text-[25px] leading-[38px] text-indigo-200 max-w-[567px] mx-auto">
+                      Select from our supported esports titles to view tournaments and manage your teams
+                  </p>
+              </div>
+
+            <!-- Game Cards Grid -->
+            <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-12">
+                <div class="game-card relative bg-gradient-to-r from-[#2A2A4A] to-[#1E1E3F] border game-border border-blue-500 rounded-[23px] overflow-hidden cursor-pointer">
+                    <div class="h-[252px] relative overflow-hidden">
+                        <img src="../assets/images/games/lol.jpg" alt="League of Legends" class="game-image absolute inset-0 w-full h-full object-cover">
+                        <div class="game-gradient absolute inset-0 bg-gradient-to-br from-blue-900/50 to-purple-900/50"></div>
+                        <div class="game-overlay absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="game-title font-inter font-semibold text-[30px] text-white">League of Legends</h3>
+                    </div>
+                </div>
+                <div class="game-card relative bg-gradient-to-r from-[#2A2A4A] to-[#1E1E3F] border game-border border-blue-500 rounded-[23px] overflow-hidden cursor-pointer">
+                    <div class="h-[252px] relative overflow-hidden">
+                        <img src="../assets/images/games/cs2.jpg" alt="Counter-Strike 2" class="game-image absolute inset-0 w-full h-full object-cover">
+                        <div class="game-gradient absolute inset-0 bg-gradient-to-br from-cyan-900/50 to-blue-900/50"></div>
+                        <div class="game-overlay absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="game-title font-inter font-semibold text-[30px] text-white">Counter-Strike 2</h3>
+                    </div>
+                </div>
+                <div class="game-card relative bg-gradient-to-r from-[#2A2A4A] to-[#1E1E3F] border game-border border-blue-500 rounded-[23px] overflow-hidden cursor-pointer">
+                    <div class="h-[252px] relative overflow-hidden">
+                        <img src="../assets/images/games/val.jpg" alt="Valorant" class="game-image absolute inset-0 w-full h-full object-cover">
+                        <div class="game-gradient absolute inset-0 bg-gradient-to-br from-red-900/50 to-pink-900/50"></div>
+                        <div class="game-overlay absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="game-title font-inter font-semibold text-[30px] text-white">Valorant</h3>
+                    </div>
+                </div>
+                <div class="game-card relative bg-gradient-to-r from-[#2A2A4A] to-[#1E1E3F] border game-border border-blue-500 rounded-[23px] overflow-hidden cursor-pointer">
+                    <div class="h-[252px] relative overflow-hidden">
+                        <img src="../assets/images/games/d2.jpg" alt="Dota 2" class="game-image absolute inset-0 w-full h-full object-cover">
+                        <div class="game-gradient absolute inset-0 bg-gradient-to-br from-red-900/50 to-yellow-900/50"></div>
+                        <div class="game-overlay absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="game-title font-inter font-semibold text-[30px] text-white">Dota 2</h3>
+                    </div>
+                </div>
+                <div class="game-card relative bg-gradient-to-r from-[#2A2A4A] to-[#1E1E3F] border game-border border-blue-500 rounded-[23px] overflow-hidden cursor-pointer">
+                    <div class="h-[252px] relative overflow-hidden">
+                        <img src="../assets/images/games/ow2.png" alt="Overwatch 2" class="game-image absolute inset-0 w-full h-full object-cover">
+                        <div class="game-gradient absolute inset-0 bg-gradient-to-br from-orange-900/50 to-blue-900/50"></div>
+                        <div class="game-overlay absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="game-title font-inter font-semibold text-[30px] text-white">Overwatch 2</h3>
+                    </div>
+                </div>
+                <div class="game-card relative bg-gradient-to-r from-[#2A2A4A] to-[#1E1E3F] border game-border border-blue-500 rounded-[23px] overflow-hidden cursor-pointer">
+                    <div class="h-[252px] relative overflow-hidden">
+                        <img src="../assets/images/games/al.jpg" alt="Apex Legends" class="game-image absolute inset-0 w-full h-full object-cover">
+                        <div class="game-gradient absolute inset-0 bg-gradient-to-br from-orange-900/50 to-red-900/50"></div>
+                        <div class="game-overlay absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-70"></div>
+                    </div>
+                    <div class="p-6 relative z-10">
+                        <h3 class="game-title font-inter font-semibold text-[30px] text-white">Apex Legends</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Section -->
+            <section class="mt-32 bg-gradient-to-r from-[#1E1E3F] via-[#2A2A4A] to-[#1E1E3F] py-20">
+                <div class="text-center">
+                    <h2 class="font-inter font-bold text-[55px] leading-tight text-white">
+                        <span>About </span>
+                        <span class="bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">Esportsify</span>
+                    </h2>
+                    <div class="w-24 h-1.5 mx-auto mt-4 bg-gradient-to-r from-purple-600 to-blue-500 rounded-full"></div>
+                </div>
+                <div class="mt-12 px-8 text-center space-y-8 max-w-[1150px] mx-auto">
+                    <p class="font-rajdhani text-[23px] leading-[41px] text-slate-300">
+                        Esportsify is a comprehensive esports tournament management platform, created to connect players, teams, and organizers. We provide a dynamic and professional environment for everyone to participate in the world of esports, from amateur leagues to major events. Our goal is to simplify the tournament organization and participation process, helping the community grow stronger.
+                    </p>
+                    <p class="font-rajdhani text-[23px] leading-[41px] text-slate-300">
+                        With Esportsify, you can easily create your own tournaments, find ongoing competitions, and manage your teams effectively. Our platform supports a wide variety of the most popular esports titles today, providing a seamless and engaging experience. We are always striving to offer the best tools, allowing everyone to focus on what matters most: competing and winning.
+                    </p>
+                    <p class="font-rajdhani text-[23px] leading-[41px] text-slate-300">
+                        We believe that esports is a legitimate sport, where talent and dedication are celebrated. Therefore, Esportsify is committed to building a fair, transparent, and professional community. Join us in turning your passion for esports into a reality and creating unforgettable moments on the virtual battlefield.
+                    </p>
+                </div>
+                <div class="mt-16 flex justify-center gap-8 px-8">
+                    <div class="flex flex-col items-center bg-[#1A1A2E] border border-blue-600 shadow-lg rounded-xl p-6 w-48">
+                        <span class="font-inter font-extrabold text-[48px] bg-gradient-to-r from-violet-600 to-blue-600 bg-clip-text text-transparent">50K+</span>
+                        <span class="mt-2 font-inter font-medium text-[18px] text-indigo-200">Active Players</span>
+                    </div>
+                    <div class="flex flex-col items-center bg-[#1A1A2E] border border-yellow-500 shadow-lg rounded-xl p-6 w-48">
+                        <span class="font-inter font-extrabold text-[48px] bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent">10K+</span>
+                        <span class="mt-2 font-inter font-medium text-[18px] text-indigo-200">Tournaments</span>
+                    </div>
+                    <div class="flex flex-col items-center bg-[#1A1A2E] border border-emerald-500 shadow-lg rounded-xl p-6 w-52">
+                        <span class="font-inter font-extrabold text-[48px] bg-gradient-to-r from-green-500 to-emerald-500 bg-clip-text text-transparent">50+</span>
+                        <span class="mt-2 font-inter font-medium text-[18px] text-indigo-200">Supported Games</span>
+                    </div>
+                </div>
+              </section>
+          </section>
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="border-t-2 border-[#3D5AF1] bg-[#0F0F23] text-indigo-300 font-['Inter'] w-full p-8 pt-20 relative">
+          <!-- Top -->
+          <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+              <div class="flex flex-col gap-8 lg:w-1/4">
+                  <!-- Logo -->
+                  <a href="./index.html" class="inline-flex items-center bg-[#5B46E533] px-6 py-3 rounded-2xl w-fit">
+                      <img src="../assets/images/logo.png" alt="Esportsify Logo" class="w-6 h-4 mr-2 object-contain" />
+                      <span class="font-bold text-xl tracking-wider text-white">
+                          <span class="text-[#5B46E5]">E</span><span>SPORT</span><span class="text-[#5B46E5]">SIFY</span>
+                      </span>
+                  </a>
+
+                  <!-- Description -->
+                  <p class="text-lg leading-relaxed text-left">
+                      The ultimate platform for managing esports tournaments, teams, and players across multiple gaming titles.
+                  </p>
+
+                  <!-- Media -->
+                  <div class="flex gap-4">
+                      <a href="#" class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-[#3D5AF1] to-[#7C3AED]">
+                          <span class="text-white font-semibold text-xl">f</span>
+                      </a>
+                      <a href="#" class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-[#1f1e1e] to-[#353535]">
+                          <span class="text-white font-semibold text-xl">𝕏</span>
+                      </a>
+                      <a href="#" class="flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r from-[#b9109d] to-[#fca798]">
+                          <span class="text-white font-normal text-lg">i</span>
+                      </a>
+                  </div>
+              </div>
+
+              <!-- Game Universe -->
+              <div class="lg:w-3/4 bg-gradient-to-r from-[#5B46E5]/15 to-[#3D5AF1]/10 border border-[#5B46E5]/30 shadow-2xl backdrop-blur-sm rounded-3xl p-6">
+                  <div class="flex justify-between items-center mb-6">
+                      <h2 class="text-2xl font-bold bg-gradient-to-r from-[#5B46E5] via-[#7C3AED] to-[#3D5AF1] text-transparent bg-clip-text">
+                          Gaming Universe
+                      </h2>
+                      <button id="game-count" class="px-6 py-2 text-xs font-bold text-white bg-gradient-to-r from-[#5B46E5] to-[#3D5AF1] rounded-full shadow-[0px_8px_16px_rgba(91,70,229,0.3)]">
+                          6 Games
+                      </button>
+                  </div>
+                  <div id="game-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6">
+                      <div class="bg-gradient-to-br from-blue-500/20 to-purple-600/20 border border-blue-500/30 rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                          <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                              <span class="text-white font-bold text-sm">LoL</span>
+                          </div>
+                          <div class="text-white text-xs font-semibold">League of Legends</div>
+                      </div>
+                      <div class="bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                          <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                              <span class="text-white font-bold text-sm">CS2</span>
+                          </div>
+                          <div class="text-white text-xs font-semibold">Counter-Strike 2</div>
+                      </div>
+                      <div class="bg-gradient-to-br from-red-500/20 to-pink-600/20 border border-red-500/30 rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                          <div class="w-12 h-12 bg-gradient-to-br from-red-500 to-pink-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                              <span class="text-white font-bold text-sm">VAL</span>
+                          </div>
+                          <div class="text-white text-xs font-semibold">Valorant</div>
+                      </div>
+                      <div class="bg-gradient-to-br from-red-700/20 to-yellow-600/20 border border-red-700/30 rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                          <div class="w-12 h-12 bg-gradient-to-br from-red-700 to-yellow-600 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                              <span class="text-white font-bold text-xs">D2</span>
+                          </div>
+                          <div class="text-white text-xs font-semibold">Dota 2</div>
+                      </div>
+                      <div class="bg-gradient-to-br from-orange-500/20 to-blue-500/20 border border-orange-500/30 rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                          <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-blue-500 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                              <span class="text-white font-bold text-xs">OW2</span>
+                          </div>
+                          <div class="text-white text-xs font-semibold">Overwatch 2</div>
+                      </div>
+                      <div class="bg-gradient-to-br from-orange-600/20 to-red-500/20 border border-orange-600/30 rounded-xl p-4 text-center hover:scale-105 transition-transform cursor-pointer">
+                          <div class="w-12 h-12 bg-gradient-to-br from-orange-600 to-red-500 rounded-xl mx-auto mb-3 flex items-center justify-center">
+                              <span class="text-white font-bold text-xs">APX</span>
+                          </div>
+                          <div class="text-white text-xs font-semibold">Apex Legends</div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          <!-- Bot -->
+          <!-- Copyrights and Policies -->
+          <div class="mt-16 bg-gradient-to-r from-transparent via-[#1A1A2E]/90 to-transparent backdrop-blur-sm rounded-t-3xl py-8 px-8 max-w-7xl mx-auto">
+              <div class="border-t border-slate-700 mt-12 pt-8 text-center">
+                  <p class="text-slate-400">© 2025 eSport Manager. All rights reserved.</p>
+              </div>
+          </div>
+      </footer>
+    </div>
+
+    <!-- SCRIPT -->
+    <script>
+    // Components are now embedded, no need to fetch
+    console.log('All components loaded, initializing main.js...');
+    
+    // Debug: Check what actually got loaded
+    setTimeout(() => {
+        const headerElement = document.querySelector('header');
+        
+        console.log('🔍 Header debug:', {
+                headerExists: !!headerElement,
+                allElements: document.querySelectorAll('*').length
+            });
+            
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const sidebarClose = document.getElementById('sidebar-close');
+            const avatarBtn = document.getElementById('avatar-btn');
+            
+            console.log('Debug - Elements check before main.js:', {
+                hamburgerBtn: !!hamburgerBtn,
+                sidebar: !!sidebar,
+                overlay: !!overlay,
+                sidebarClose: !!sidebarClose,
+                avatarBtn: !!avatarBtn
+            });
+            
+            // If avatar still not found, try harder search
+            if (!avatarBtn) {
+                const allDivsWithAvatar = document.querySelectorAll('div[id*="avatar"], [id="avatar-btn"]');
+                console.log('🔍 Looking for avatar elements:', allDivsWithAvatar.length);
+                allDivsWithAvatar.forEach((el, i) => {
+                    console.log(`Avatar element ${i}:`, el.id, el.className);
+                });
+                
+                // Check if header is really loaded
+                const headerDiv = document.querySelector('[data-include="./components/header.html"]');
+                const actualHeader = document.querySelector('header');
+                
+                console.log('🔍 Header loading check:', {
+                    headerDivExists: !!headerDiv,
+                    actualHeaderExists: !!actualHeader,
+                    headerDivHasContent: headerDiv ? headerDiv.innerHTML.length > 100 : false,
+                    searchInHeader: actualHeader ? actualHeader.querySelector('#avatar-btn') : null,
+                    rawHeaderHTML: headerDiv ? headerDiv.innerHTML.substring(0, 500) + '...' : 'no content',
+                    avatarSpecificSearch: !!document.querySelector('#avatar-btn')
+                });
+                
+                // Try to find avatar-btn specifically in header
+                if (actualHeader) {
+                    const avatarInHeader = actualHeader.querySelector('#avatar-btn');
+                    console.log('🎯 Avatar in header:', !!avatarInHeader);
+                    if (avatarInHeader) {
+                        console.log('✅ Found avatar in header! ID:', avatarInHeader.id);
+                    } else {
+                        // Manual fix: If avatar is missing, try to find and fix the header
+                        console.log('🔧 Avatar missing - attempting manual fix...');
+                        const bellButton = actualHeader.querySelector('button[aria-label="Notifications"]');
+                        if (bellButton && bellButton.parentElement) {
+                            const avatarHTML = `
+                                <div id="avatar-btn" class="w-12 h-12 rounded-full overflow-hidden border-2 border-[#3D5AF1] bg-gradient-to-r from-violet-600 to-blue-600 flex items-center justify-center cursor-pointer relative" aria-label="User">
+                                    <img id="header-avatar-img" src="../assets/images/user.png" alt="User Avatar" class="w-full h-full object-cover" style="display: none;" />
+                                    <span class="text-white font-semibold text-lg" id="avatar-fallback" style="display: block;">U</span>
+                                </div>
+                            `;
+                            bellButton.parentElement.insertAdjacentHTML('beforeend', avatarHTML);
+                            console.log('🔧 Manual avatar injection completed');
+                        }
+                    }
+                }
+            }
+            
+            const script = document.createElement('script');
+            script.src = 'main.js';
+            script.onload = () => {
+                console.log('✅ Main.js loaded successfully');
+                
+                // Initialize dropdown functionality
+                initializeDropdowns();
+                
+                // Initialize user state management
+                initializeUserState();
+                
+                // Initialize sidebar functionality - DISABLED to avoid conflict with main.js
+                // initializeSidebar();
+                
+                // Load header components script
+                const headerScript = document.createElement('script');
+                headerScript.src = './components/header-components.js';
+                headerScript.onload = () => {
+                    console.log('✅ Header components script loaded');
+                };
+                document.body.appendChild(headerScript);
+                
+                // Additional delay to ensure DOM is fully ready
+                setTimeout(() => {
+                    if (window.initializeAvatars) {
+                        console.log('🔄 Calling initializeAvatars again...');
+                        window.initializeAvatars();
+                    }
+                }, 500); // Longer delay
+            };
+            script.onerror = () => console.error('❌ Failed to load main.js');
+            document.body.appendChild(script);
+        }, 200); // Longer initial delay
+
+    // User State Management
+    function initializeUserState() {
+        console.log('🔐 Initializing user state management...');
+        
+        // Check if user is logged in (you can replace this with actual authentication check)
+        const isLoggedIn = checkUserLoginStatus();
+        
+        // Update UI based on user state
+        updateUIForUserState(isLoggedIn);
+        
+        // Always initialize logout functionality for development purposes
+        setupLogoutHandler();
+        
+        // Initialize login button functionality
+        setupLoginHandler();
+        
+        // Initialize auth popup functionality
+        setupAuthPopup();
+        
+        // Update user state
+        setTimeout(() => {
+            console.log('User state initialized');
+        }, 100);
+    }
+
+    function setupAuthPopup() {
+        // Initialize the AuthPopup controller
+        if (window.authPopup) {
+            window.authPopup.init();
+            console.log('✅ Auth popup initialized using external controller');
+        } else {
+            console.error('❌ AuthPopup controller not found. Make sure auth-popup.js is loaded.');
+        }
+    }
+
+    function setupLoginHandler() {
+        console.log('🔄 Setting up login handler...');
+        const loginBtn = document.getElementById('login-btn');
+        
+        if (loginBtn) {
+            console.log('✅ Login button found:', loginBtn);
+            console.log('Login button display:', getComputedStyle(loginBtn).display);
+            
+            loginBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                console.log('🔐 Login button clicked!');
+                handleLogin();
+            });
+            
+            console.log('✅ Login handler setup complete');
+        } else {
+            console.error('❌ Login button not found in DOM');
+        }
+    }
+
+    function handleLogin() {
+        console.log('🔐 User clicking login...');
+        
+        // Show the auth popup
+        showAuthPopup();
+    }
+
+    function showAuthPopup(tab = 'login') {
+        console.log('🔄 Attempting to show auth popup...');
+        console.log('window.authPopup exists:', !!window.authPopup);
+        console.log('authPopup.isInitialized:', window.authPopup?.isInitialized);
+        
+        if (window.authPopup && window.authPopup.isInitialized) {
+            console.log('✅ Using new auth popup component');
+            window.authPopup.show(tab);
+        } else {
+            console.warn('⚠️ Auth popup not yet initialized, using fallback...');
+            // Fallback to old method if component not ready
+            showOldAuthPopup();
+        }
+    }
+
+    function showOldAuthPopup() {
+        const authPopup = document.getElementById('auth-popup');
+        const authPopupContent = document.getElementById('auth-popup-content');
+        
+        if (authPopup && authPopupContent) {
+            authPopup.style.display = 'flex';
+            authPopup.style.opacity = '0';
+            authPopupContent.style.transform = 'scale(0.9)';
+            
+            // Animate in
+            setTimeout(() => {
+                authPopup.style.opacity = '1';
+                authPopupContent.style.transform = 'scale(1)';
+            }, 10);
+            
+            console.log('✅ Auth popup displayed with animation');
+        }
+    }
+
+    function hideAuthPopup() {
+        if (window.authPopup && window.authPopup.isInitialized) {
+            window.authPopup.hide();
+        } else {
+            // Fallback to old method
+            hideOldAuthPopup();
+        }
+    }
+
+    function hideOldAuthPopup() {
+        const authPopup = document.getElementById('auth-popup');
+        const authPopupContent = document.getElementById('auth-popup-content');
+        
+        if (authPopup && authPopupContent) {
+            authPopup.style.opacity = '0';
+            authPopupContent.style.transform = 'scale(0.9)';
+            
+            setTimeout(() => {
+                authPopup.style.display = 'none';
+                // Reset forms
+                resetAuthForms();
+            }, 300);
+            
+            console.log('✅ Auth popup hidden with animation');
+        }
+    }
+
+    function resetAuthForms() {
+        // Clear form inputs
+        const inputs = ['login-email', 'login-password', 'register-username', 'register-email', 'register-password'];
+        inputs.forEach(id => {
+            const input = document.getElementById(id);
+            if (input) input.value = '';
+        });
+        
+        // Reset to login tab
+        switchToLoginTab();
+        
+        console.log('✅ Auth forms reset');
+    }
+
+    function checkUserLoginStatus() {
+        // For demo purposes, let's assume user is logged in
+        // In real application, check with localStorage, session, or API
+        const userToken = localStorage.getItem('userToken');
+        const isGuest = localStorage.getItem('isGuest') === 'true';
+        
+        // You can change this logic based on your authentication system
+        return !isGuest && userToken !== null;
+    }
+
+    function updateUIForUserState(isLoggedIn) {
+        const logoutItem = document.getElementById('logout-item');
+        const userProfileSection = document.getElementById('user-profile-section');
+        const avatarBtn = document.getElementById('avatar-btn');
+        const loginBtn = document.getElementById('login-btn');
+        const notificationBtn = document.getElementById('notification-btn');
+        const scheduleBtn = document.getElementById('schedule-btn');
+        const scheduleItem = document.getElementById('schedule-item');
+        
+        console.log('🔄 Updating UI for user state:', isLoggedIn ? 'LOGGED IN' : 'GUEST');
+        
+        if (isLoggedIn) {
+            // LOGGED IN STATE
+            // Show logout option and user profile
+            if (logoutItem) {
+                logoutItem.style.display = 'block';
+                console.log('✅ Logout item shown for logged-in user');
+            }
+            
+            if (userProfileSection) {
+                userProfileSection.style.display = 'flex';
+                console.log('✅ User profile section shown');
+            }
+            
+            // Show avatar, hide login button
+            if (avatarBtn) {
+                avatarBtn.style.display = 'flex';
+            }
+            if (loginBtn) {
+                loginBtn.style.display = 'none';
+            }
+            
+            // Enable notification button
+            if (notificationBtn) {
+                notificationBtn.style.opacity = '1';
+                notificationBtn.style.cursor = 'pointer';
+                notificationBtn.style.pointerEvents = 'auto';
+                console.log('✅ Notification button enabled');
+            }
+            
+            // Enable schedule button and item
+            if (scheduleBtn) {
+                scheduleBtn.style.opacity = '1';
+                scheduleBtn.style.cursor = 'pointer';
+                scheduleBtn.style.pointerEvents = 'auto';
+            }
+            if (scheduleItem) {
+                scheduleItem.style.opacity = '1';
+                scheduleItem.style.pointerEvents = 'auto';
+                console.log('✅ Schedule button enabled');
+            }
+            
+            // Update user info display
+            updateUserInfo(true);
+            
+        } else {
+            // GUEST STATE
+            // Hide logout option and user profile
+            if (logoutItem) {
+                logoutItem.style.display = 'none';
+                console.log('🚫 Logout item hidden for guest user');
+            }
+            
+            if (userProfileSection) {
+                userProfileSection.style.display = 'none';
+                console.log('🚫 User profile section hidden for guest');
+            }
+            
+            // Hide avatar, show login button
+            if (avatarBtn) {
+                avatarBtn.style.display = 'none';
+            }
+            if (loginBtn) {
+                loginBtn.style.display = 'block';
+            }
+            
+            // Disable notification button (make it dimmed)
+            if (notificationBtn) {
+                notificationBtn.style.opacity = '0.4';
+                notificationBtn.style.cursor = 'not-allowed';
+                notificationBtn.style.pointerEvents = 'none';
+                console.log('🚫 Notification button disabled for guest');
+            }
+            
+            // Disable schedule button and item (make it dimmed)
+            if (scheduleBtn) {
+                scheduleBtn.style.opacity = '0.4';
+                scheduleBtn.style.cursor = 'not-allowed';
+                scheduleBtn.style.pointerEvents = 'none';
+            }
+            if (scheduleItem) {
+                scheduleItem.style.opacity = '0.4';
+                scheduleItem.style.pointerEvents = 'none';
+                console.log('🚫 Schedule button disabled for guest');
+            }
+            
+            // Update user info display for guest
+            updateUserInfo(false);
+        }
+        
+        // Add CSS classes to sidebar menu items for hover effects
+        addSidebarMenuHoverEffects();
+    }
+
+    function addSidebarMenuHoverEffects() {
+        // Add hover class to all sidebar menu items (except logout which has its own styling)
+        const menuItems = document.querySelectorAll('nav ul li a:not(#logout-btn)');
+        menuItems.forEach(item => {
+            if (!item.classList.contains('sidebar-menu-item')) {
+                item.classList.add('sidebar-menu-item');
+            }
+        });
+        console.log('✅ Added hover effects to sidebar menu items');
+    }
+
+    function updateUserInfo(isLoggedIn) {
+        const userNameElement = document.querySelector('.user-profile p:first-child');
+        const userStatusElement = document.querySelector('.user-profile p:last-child');
+        
+        if (isLoggedIn) {
+            // For logged-in users, keep existing info or fetch from API
+            if (userNameElement) userNameElement.textContent = 'John Doe';
+            if (userStatusElement) userStatusElement.textContent = 'Pro Player';
+        } else {
+            // For guests, show guest info
+            if (userNameElement) userNameElement.textContent = 'Guest User';
+            if (userStatusElement) userStatusElement.textContent = 'Welcome!';
+        }
+    }
+
+    function setupLogoutHandler() {
+        const logoutBtn = document.getElementById('logout-btn');
+        
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                handleLogout();
+            });
+            
+            // Add hover effects for logout button
+            logoutBtn.addEventListener('mouseenter', () => {
+                logoutBtn.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+                logoutBtn.style.transform = 'translateX(4px)';
+            });
+            
+            logoutBtn.addEventListener('mouseleave', () => {
+                logoutBtn.style.backgroundColor = 'transparent';
+                logoutBtn.style.transform = 'translateX(0)';
+            });
+            
+            console.log('✅ Logout handler setup complete');
+        }
+    }
+
+    function handleLogout() {
+        console.log('🔓 User logging out...');
+        
+        // Show logout confirmation
+        if (confirm('Are you sure you want to log out?')) {
+            // Clear user session data
+            localStorage.removeItem('userToken');
+            localStorage.setItem('isGuest', 'true');
+            
+            // Update UI to guest state
+            updateUIForUserState(false);
+            
+            // Close sidebar
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const mainWrapper = document.getElementById('main-wrapper');
+            if (sidebar && overlay && mainWrapper) {
+                sidebar.style.left = '-280px';
+                overlay.style.display = 'none';
+                mainWrapper.style.marginLeft = '0px';
+            }
+            
+            console.log('✅ User logged out successfully - switched to guest mode');
+            
+            // Show success message for development
+            alert('Logged out successfully!\n\n- Avatar replaced with Login button\n- Profile section hidden\n- Notifications and Schedule disabled\n\nUse testLogin() to log back in.');
+        }
+    }
+
+    // Demo functions to switch between user and guest (for testing)
+    function loginAsUser() {
+        localStorage.setItem('userToken', 'demo-token-12345');
+        localStorage.setItem('isGuest', 'false');
+        updateUIForUserState(true);
+        console.log('🔐 Switched to logged-in user mode');
+        alert('Switched to LOGGED IN mode!\n\n- Avatar visible\n- Profile section shown\n- Notifications and Schedule enabled');
+    }
+
+    function loginAsGuest() {
+        localStorage.removeItem('userToken');
+        localStorage.setItem('isGuest', 'true');
+        updateUIForUserState(false);
+        console.log('👤 Switched to guest mode');
+        alert('Switched to GUEST mode!\n\n- Login button visible\n- Profile section hidden\n- Notifications and Schedule disabled');
+    }
+
+    // Global functions for testing login/logout (accessible from console)
+    window.testLogin = loginAsUser;
+    window.testGuest = loginAsGuest;
+    window.testLogout = handleLogout;
+    
+    // Helper function to check current user state
+    window.getCurrentUserState = function() {
+        const isLoggedIn = checkUserLoginStatus();
+        const userToken = localStorage.getItem('userToken');
+        const isGuest = localStorage.getItem('isGuest');
+        
+        console.log('Current User State:', {
+            isLoggedIn,
+            userToken,
+            isGuest,
+            logoutBtnExists: !!document.getElementById('logout-btn')
+        });
+        
+        return { isLoggedIn, userToken, isGuest };
+    };
+
+    // Test functions for sidebar (for debugging)
+    window.testOpenSidebar = function() {
+        console.log('🧪 Manual test - Opening sidebar...');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const mainWrapper = document.getElementById('main-wrapper');
+        console.log('Manual test elements:', { sidebar: !!sidebar, overlay: !!overlay, mainWrapper: !!mainWrapper });
+        
+        if (sidebar && overlay && mainWrapper) {
+            sidebar.style.left = '0px';
+            mainWrapper.style.marginLeft = '280px';
+            overlay.style.display = 'block';
+            console.log('✅ Manual sidebar open test - content pushed');
+        } else {
+            console.error('❌ Sidebar elements not found for manual test');
+        }
+    };
+
+    window.testCloseSidebar = function() {
+        console.log('🧪 Manual test - Closing sidebar...');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const mainWrapper = document.getElementById('main-wrapper');
+        
+        if (sidebar && overlay && mainWrapper) {
+            sidebar.style.left = '-280px';
+            mainWrapper.style.marginLeft = '0px';
+            overlay.style.display = 'none';
+            console.log('✅ Manual sidebar close test - content restored');
+        } else {
+            console.error('❌ Sidebar elements not found for manual test');
+        }
+    };
+
+    window.debugSidebar = function() {
+        console.log('🔍 Debugging sidebar elements:');
+        const hamburgerBtn = document.getElementById('hamburger-btn');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        const sidebarClose = document.getElementById('sidebar-close');
+        const mainWrapper = document.getElementById('main-wrapper');
+        
+        console.log({
+            hamburgerBtn: {
+                exists: !!hamburgerBtn,
+                element: hamburgerBtn,
+                listeners: hamburgerBtn ? 'has click listeners' : 'no element'
+            },
+            sidebar: { exists: !!sidebar, left: sidebar ? sidebar.style.left : 'no element' },
+            overlay: { exists: !!overlay, display: overlay ? overlay.style.display : 'no element' },
+            sidebarClose: { exists: !!sidebarClose },
+            mainWrapper: { exists: !!mainWrapper, marginLeft: mainWrapper ? mainWrapper.style.marginLeft : 'no element' }
+        });
+        
+        // Try to click hamburger manually
+        if (hamburgerBtn) {
+            console.log('🧪 Trying to trigger hamburger click...');
+            hamburgerBtn.click();
+        }
+    };
+
+    // Dropdown functionality
+    function initializeDropdowns() {
+        console.log('🎯 Initializing dropdown functionality...');
+
+        // Search dropdown
+        const searchInput = document.getElementById('search-input');
+        const searchBtn = document.getElementById('search-btn');
+        const searchDropdown = document.getElementById('search-dropdown');
+        
+        // Notification dropdown
+        const notificationBtn = document.getElementById('notification-btn');
+        const notificationsDropdown = document.getElementById('notifications-dropdown');
+        
+        // Mark all as read button
+        const markAllReadBtn = document.getElementById('mark-all-read');
+
+        // Helper function to show dropdown with animation
+        function showDropdown(dropdown) {
+            if (dropdown) {
+                dropdown.style.display = 'block';
+                dropdown.classList.add('dropdown-enter');
+                setTimeout(() => {
+                    dropdown.classList.remove('dropdown-enter');
+                    dropdown.classList.add('dropdown-enter-active');
+                }, 10);
+            }
+        }
+
+        // Helper function to hide dropdown with animation
+        function hideDropdown(dropdown) {
+            if (dropdown) {
+                dropdown.classList.remove('dropdown-enter-active');
+                dropdown.classList.add('dropdown-exit');
+                setTimeout(() => {
+                    dropdown.classList.remove('dropdown-exit');
+                    dropdown.style.display = 'none';
+                }, 150);
+            }
+        }
+
+        // Search functionality
+        if (searchInput && searchDropdown) {
+            console.log('✅ Search elements found, setting up events');
+            
+            // Show dropdown when typing
+            searchInput.addEventListener('input', (e) => {
+                const query = e.target.value.trim();
+                console.log('🔍 Search query:', query);
+                
+                if (query.length > 0) {
+                    // Hide notifications dropdown if open
+                    hideDropdown(notificationsDropdown);
+                    
+                    // Show search dropdown
+                    showDropdown(searchDropdown);
+                    
+                    // Update search results (mock functionality)
+                    updateSearchResults(query);
+                } else {
+                    hideDropdown(searchDropdown);
+                }
+            });
+
+            // Show dropdown when clicking search input
+            searchInput.addEventListener('focus', () => {
+                if (searchInput.value.trim().length > 0) {
+                    hideDropdown(notificationsDropdown);
+                    showDropdown(searchDropdown);
+                }
+            });
+
+            // Search button click
+            if (searchBtn) {
+                searchBtn.addEventListener('click', () => {
+                    const query = searchInput.value.trim();
+                    if (query) {
+                        console.log('🔍 Searching for:', query);
+                        // Perform actual search here
+                        hideDropdown(searchDropdown);
+                    }
+                });
+            }
+        } else {
+            console.log('❌ Search elements not found');
+        }
+
+        // Notification functionality
+        if (notificationBtn && notificationsDropdown) {
+            console.log('✅ Notification elements found, setting up events');
+            
+            notificationBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('🔔 Notification button clicked');
+                
+                // Hide search dropdown if open
+                hideDropdown(searchDropdown);
+                
+                // Toggle notifications dropdown
+                if (notificationsDropdown.style.display === 'none' || !notificationsDropdown.style.display) {
+                    showDropdown(notificationsDropdown);
+                    
+                    // Update notification badge
+                    const badge = document.getElementById('notification-badge');
+                    if (badge) {
+                        setTimeout(() => {
+                            badge.textContent = '0';
+                            badge.style.display = 'none';
+                        }, 1000);
+                    }
+                } else {
+                    hideDropdown(notificationsDropdown);
+                }
+            });
+        } else {
+            console.log('❌ Notification elements not found');
+        }
+
+        // Mark all as read functionality
+        if (markAllReadBtn) {
+            markAllReadBtn.addEventListener('click', () => {
+                console.log('✅ Marking all notifications as read');
+                
+                // Remove notification dots
+                const notificationDots = document.querySelectorAll('.notification-dot');
+                notificationDots.forEach(dot => {
+                    dot.style.display = 'none';
+                });
+                
+                // Update badge
+                const badge = document.getElementById('notification-badge');
+                if (badge) {
+                    badge.textContent = '0';
+                    badge.style.display = 'none';
+                }
+                
+                // Mark items as read
+                const notificationItems = document.querySelectorAll('.notification-item');
+                notificationItems.forEach(item => {
+                    item.setAttribute('data-read', 'true');
+                });
+            });
+        }
+
+        // Click outside to close dropdowns
+        document.addEventListener('click', (e) => {
+            const isSearchClick = searchInput && searchInput.contains(e.target);
+            const isSearchDropdownClick = searchDropdown && searchDropdown.contains(e.target);
+            const isNotificationClick = notificationBtn && notificationBtn.contains(e.target);
+            const isNotificationDropdownClick = notificationsDropdown && notificationsDropdown.contains(e.target);
+            
+            if (!isSearchClick && !isSearchDropdownClick) {
+                hideDropdown(searchDropdown);
+            }
+            
+            if (!isNotificationClick && !isNotificationDropdownClick) {
+                hideDropdown(notificationsDropdown);
+            }
+        });
+
+        // Search suggestions click handler
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('search-suggestion')) {
+                const query = e.target.getAttribute('data-query');
+                searchInput.value = query;
+                hideDropdown(searchDropdown);
+                console.log('🔍 Selected suggestion:', query);
+            }
+        });
+
+        console.log('✅ Dropdown functionality initialized');
+    }
+
+    // Sidebar functionality
+    function initializeSidebar() {
+        console.log('🎯 Initializing sidebar functionality...');
+        
+        // Wait a bit to ensure DOM is ready
+        setTimeout(() => {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            const sidebarClose = document.getElementById('sidebar-close');
+            const mainWrapper = document.getElementById('main-wrapper');
+            
+            console.log('Sidebar elements check:', {
+                hamburgerBtn: !!hamburgerBtn,
+                hamburgerBtnExists: hamburgerBtn ? 'Found' : 'NOT FOUND',
+                sidebar: !!sidebar,
+                overlay: !!overlay,
+                sidebarClose: !!sidebarClose,
+                mainWrapper: !!mainWrapper
+            });
+            
+            // Additional debugging and direct binding
+            if (!hamburgerBtn) {
+                const allButtons = document.querySelectorAll('button');
+                console.log('🔍 All buttons found:', allButtons.length);
+                allButtons.forEach((btn, i) => {
+                    console.log(`Button ${i}:`, btn.id, btn.className, btn.getAttribute('aria-label'));
+                });
+                
+                // Try to find by aria-label as backup
+                const hamburgerByLabel = document.querySelector('button[aria-label="Menu"]');
+                if (hamburgerByLabel) {
+                    console.log('🔧 Found hamburger by aria-label, assigning as hamburgerBtn');
+                    hamburgerBtn = hamburgerByLabel;
+                }
+            }
+        
+        // Function to open sidebar
+        function openSidebar() {
+            console.log('🔧 Opening sidebar...');
+            if (sidebar && mainWrapper) {
+                sidebar.style.left = '0px';
+                mainWrapper.style.marginLeft = '280px';
+                if (overlay) overlay.style.display = 'block';
+                console.log('✅ Sidebar opened - content pushed');
+            } else {
+                console.error('❌ Sidebar or mainWrapper not found', { sidebar: !!sidebar, mainWrapper: !!mainWrapper });
+            }
+        }
+        
+        // Function to close sidebar
+        function closeSidebar() {
+            console.log('🔧 Closing sidebar...');
+            if (sidebar && mainWrapper) {
+                sidebar.style.left = '-280px';
+                mainWrapper.style.marginLeft = '0px';
+                if (overlay) overlay.style.display = 'none';
+                console.log('✅ Sidebar closed - content restored');
+            } else {
+                console.error('❌ Sidebar or mainWrapper not found', { sidebar: !!sidebar, mainWrapper: !!mainWrapper });
+            }
+        }
+        
+            // Hamburger button click to open sidebar
+            if (hamburgerBtn) {
+                hamburgerBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log('🍔 Hamburger button clicked - opening sidebar');
+                    openSidebar();
+                });
+                console.log('✅ Hamburger button event listener added');
+            } else {
+                console.error('❌ Missing hamburger button with ID: hamburger-btn');
+                
+                // Fallback: Try to find and bind any button that looks like hamburger
+                const fallbackHamburger = document.querySelector('button[aria-label="Menu"]') || 
+                                         document.querySelector('header button:first-of-type');
+                if (fallbackHamburger) {
+                    console.log('🔧 Using fallback hamburger button');
+                    fallbackHamburger.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.log('🍔 Fallback hamburger clicked - opening sidebar');
+                        openSidebar();
+                    });
+                    console.log('✅ Fallback hamburger event listener added');
+                }
+            }        // Close button click to close sidebar
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', (e) => {
+                e.stopPropagation();
+                console.log('❌ Close button clicked - closing sidebar');
+                closeSidebar();
+            });
+            console.log('✅ Close button event listener added');
+        } else {
+            console.error('❌ Missing sidebar close button');
+        }
+        
+        // Overlay click to close sidebar
+        if (overlay) {
+            overlay.addEventListener('click', () => {
+                console.log('� Overlay clicked - closing sidebar');
+                closeSidebar();
+            });
+            console.log('✅ Overlay event listener added');
+        } else {
+            console.error('❌ Missing overlay element');
+        }
+        
+        // Make functions globally available for testing
+        window.openSidebar = openSidebar;
+        window.closeSidebar = closeSidebar;
+        
+        // Auto-test if hamburger button is available
+        if (hamburgerBtn || document.querySelector('button[aria-label="Menu"]')) {
+            console.log('🧪 Hamburger button detected - ready for user interaction');
+            
+            // Add visual feedback when hovering over hamburger
+            const hamBtn = hamburgerBtn || document.querySelector('button[aria-label="Menu"]');
+            if (hamBtn) {
+                hamBtn.addEventListener('mouseenter', () => {
+                    console.log('🔍 Mouse hovering over hamburger button');
+                    hamBtn.style.transform = 'scale(1.1)';
+                });
+                hamBtn.addEventListener('mouseleave', () => {
+                    hamBtn.style.transform = 'scale(1)';
+                });
+            }
+        } else {
+            console.error('🚨 NO HAMBURGER BUTTON FOUND AT ALL');
+        }
+        
+        console.log('✅ Sidebar functionality initialized');
+        }, 300); // Wait 300ms for DOM to be ready
+    }
+
+    // Update search results (mock function)
+    function updateSearchResults(query) {
+        const gamesSection = document.getElementById('search-games');
+        const tournamentsSection = document.getElementById('search-tournaments');
+        const popularSection = document.getElementById('search-popular');
+        const noResultsSection = document.getElementById('search-no-results');
+        
+        // Simple mock search
+        const gameMatches = ['League of Legends', 'Counter-Strike 2', 'Valorant', 'Dota 2', 'Overwatch 2', 'Apex Legends']
+            .filter(game => game.toLowerCase().includes(query.toLowerCase()));
+        
+        // Clear previous results
+        if (gamesSection) gamesSection.innerHTML = '';
+        if (tournamentsSection) tournamentsSection.innerHTML = '';
+        
+        if (gameMatches.length > 0) {
+            if (popularSection) popularSection.style.display = 'none';
+            if (noResultsSection) noResultsSection.style.display = 'none';
+            
+            // Show game matches
+            if (gamesSection) {
+                gamesSection.innerHTML = `
+                    <h4 style="font-size: 12px; color: #A5B4FC; margin-bottom: 8px;">Games</h4>
+                    ${gameMatches.map(game => `
+                        <button style="display: block; width: 100%; text-align: left; padding: 8px; color: #A5B4FC; background: transparent; border: none; cursor: pointer;" class="search-suggestion" data-query="${game}">${game}</button>
+                    `).join('')}
+                `;
+            }
+        } else {
+            if (popularSection) popularSection.style.display = 'block';
+            if (noResultsSection) noResultsSection.style.display = 'block';
+        }
+    }
+
+    // Generate match notifications based on followed matches
+    function generateMatchNotifications() {
+        // Mock followed matches data
+        const followedMatches = [
+            {
+                id: 1,
+                team1: "T1",
+                team2: "G2", 
+                game: "LoL Worlds 2025",
+                status: "started",
+                time: "15 minutes ago"
+            },
+            {
+                id: 2,
+                team1: "Fnatic",
+                team2: "Team Liquid",
+                game: "CS2 Major Final", 
+                status: "finished",
+                score: "2-1",
+                time: "2 hours ago"
+            },
+            {
+                id: 3,
+                team1: "Cloud9",
+                team2: "100 Thieves",
+                game: "Valorant Champions",
+                status: "started", 
+                time: "45 minutes ago"
+            },
+            {
+                id: 4,
+                team1: "TSM",
+                team2: "FaZe",
+                game: "Apex Legends Championship",
+                status: "finished",
+                score: "3-0", 
+                time: "1 day ago",
+                read: true
+            }
+        ];
+
+        const notificationsList = document.getElementById('notifications-list');
+        if (!notificationsList) return;
+
+        // Clear existing notifications
+        notificationsList.innerHTML = '';
+
+        // Generate notifications for each followed match
+        followedMatches.forEach(match => {
+            const isRead = match.read || false;
+            const isStarted = match.status === 'started';
+            const isFinished = match.status === 'finished';
+            
+            const notificationHtml = `
+                <div style="padding: 12px; ${!isRead ? 'border-bottom: 1px solid rgba(61,90,241,0.1);' : ''} display: flex; gap: 12px;" class="notification-item" data-read="${isRead}" data-match-id="${match.id}">
+                  <div style="width: 28px; height: 28px; background: linear-gradient(to right, ${isStarted ? '#10b981, #059669' : '#3b82f6, #1d4ed8'}); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                    <svg style="width: 12px; height: 12px; color: white;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      ${isStarted ? 
+                        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h8m-9 5a9 9 0 1118 0 9 9 0 01-18 0z"></path>' :
+                        '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>'
+                      }
+                    </svg>
+                  </div>
+                  <div style="flex: 1;">
+                    <p style="font-size: 14px; color: white; font-weight: 500;">${isStarted ? 'Match Started' : 'Match Finished'}</p>
+                    <p style="font-size: 12px; color: #A5B4FC; margin-top: 4px;">
+                      ${isFinished && match.score ? 
+                        `${match.team1} ${match.score} ${match.team2} - ${match.game}` :
+                        `${match.team1} vs ${match.team2} - ${match.game}${isStarted ? ' has begun!' : ''}`
+                      }
+                    </p>
+                    <p style="font-size: 12px; color: #666; margin-top: 4px;">${match.time}</p>
+                  </div>
+                  ${!isRead ? `<div style="width: 8px; height: 8px; background: ${isStarted ? '#10b981' : '#3b82f6'}; border-radius: 50%;" class="notification-dot"></div>` : ''}
+                </div>
+            `;
+            
+            notificationsList.innerHTML += notificationHtml;
+        });
+
+        // Update notification badge count
+        const unreadCount = followedMatches.filter(match => !match.read).length;
+        const badge = document.getElementById('notification-badge');
+        if (badge) {
+            badge.textContent = unreadCount.toString();
+            badge.style.display = unreadCount > 0 ? 'flex' : 'none';
+        }
+
+        console.log(`✅ Generated ${followedMatches.length} match notifications (${unreadCount} unread)`);
+    }
+
+    // Initialize match notifications after DOM is ready
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('🚀 DOM loaded, initializing components...');
+        
+        // Initialize auth popup component
+        async function initializeAuthComponent() {
+            try {
+                console.log('🔄 Loading auth popup script...');
+                
+                // Load auth popup script
+                const script = document.createElement('script');
+                script.src = './components/auth-popup.js';
+                script.onload = async () => {
+                    console.log('✅ Auth popup script loaded');
+                    
+                    // Initialize the auth popup after script loads
+                    if (window.authPopup) {
+                        await window.authPopup.init();
+                        console.log('✅ Auth component initialized');
+                        
+                        // Set up login button handler after auth popup is ready
+                        setupLoginHandler();
+                        
+                    } else {
+                        console.error('❌ window.authPopup not found');
+                    }
+                };
+                script.onerror = (error) => {
+                    console.error('❌ Failed to load auth popup script:', error);
+                };
+                document.head.appendChild(script);
+            } catch (error) {
+                console.error('❌ Error initializing auth component:', error);
+            }
+        }
+
+        // Initialize auth component
+        initializeAuthComponent();
+
+        setTimeout(() => {
+            generateMatchNotifications();
+        }, 1000);
+    });
+</script>
+
+<!-- AUTH POPUP COMPONENT EMBEDDED -->
+<style>
+/* Force no background on auth tabs */
+#login-tab, #register-tab {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+#login-tab:hover, #register-tab:hover,
+#login-tab:focus, #register-tab:focus,
+#login-tab:active, #register-tab:active {
+    background: transparent !important;
+    background-color: transparent !important;
+    background-image: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+</style>
+<div id="auth-popup" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 70; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s ease;">
+  <div id="auth-popup-content" style="background: #1a1f2e; border-radius: 16px; width: 520px; height: auto; min-height: 600px; position: relative; transform: scale(0.9); transition: transform 0.3s ease; box-sizing: border-box; padding: 40px;">
+    
+    <!-- Tab Headers -->
+    <div style="display: flex; justify-content: space-between; margin-bottom: 40px; position: relative; width: 100%;">
+      <!-- Login Tab -->
+      <button id="login-tab" style="background: transparent !important; color: #5b5ff7; border: none !important; padding: 12px 0; font-family: 'Inter'; font-weight: 600; font-size: 18px; cursor: pointer; transition: color 0.3s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: center; box-shadow: none !important;">
+        Login
+      </button>
+      
+      <!-- Register Tab -->
+      <button id="register-tab" style="background: transparent !important; color: #9CA3AF; border: none !important; padding: 12px 0; font-family: 'Inter'; font-weight: 600; font-size: 18px; cursor: pointer; transition: color 0.3s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: center; box-shadow: none !important;">
+        Register
+      </button>
+      
+      <!-- Forgot Password Tab (Hidden by default) -->
+      <button id="forgot-tab" style="background: transparent !important; color: #9CA3AF; border: none !important; padding: 12px 0; font-family: 'Inter'; font-weight: 600; font-size: 16px; cursor: pointer; transition: color 0.3s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; text-align: center; box-shadow: none !important; display: none;">
+        Reset Password
+      </button>
+      
+      <!-- Active tab underline -->
+      <div id="tab-underline" style="position: absolute; bottom: -10px; left: 0; width: 50%; height: 3px; background: #5b5ff7; transition: all 0.3s ease;"></div>
+    </div>
+
+    <!-- Close Button -->
+    <button id="close-auth-popup" style="position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: rgba(156, 163, 175, 0.2); border: none; border-radius: 50%; color: #9CA3AF; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 18px; transition: all 0.2s ease;" onmouseover="this.style.background='rgba(156, 163, 175, 0.3)'; this.style.transform='scale(1.1)';" onmouseout="this.style.background='rgba(156, 163, 175, 0.2)'; this.style.transform='scale(1)';">
+      ×
+    </button>
+
+    <!-- Login Form -->
+    <div id="login-form" style="width: 100%;">
+      <!-- Welcome Back Title -->
+      <h2 style="text-align: center; margin: 0 0 40px 0; font-family: 'Inter'; font-weight: 700; font-size: 32px; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Welcome Back</h2>
+      
+      <!-- Error Message -->
+      <div id="login-error" style="display: none; padding: 12px; margin-bottom: 20px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; color: #F87171; font-family: 'Inter'; font-size: 14px; text-align: center;"></div>
+      
+      <!-- Email Input -->
+      <div style="margin-bottom: 24px;">
+        <!-- Email Label -->
+        <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Email</label>
+        
+        <!-- Email Input Field -->
+        <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+          <!-- Email Icon -->
+          <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+            </svg>
+          </div>
+          
+          <input id="login-email" type="email" placeholder="your@email.com" style="width: 100%; padding: 16px 16px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div style="margin-bottom: 16px;">
+        <!-- Password Label -->
+        <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Password</label>
+        
+        <!-- Password Input Field -->
+        <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+          <!-- Lock Icon -->
+          <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          
+          <input id="login-password" type="password" placeholder="••••••••" style="width: 100%; padding: 16px 52px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+          
+          <!-- Eye Icon -->
+          <button id="toggle-password" type="button" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: none; border: none; cursor: pointer; padding: 0;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Forgot Password -->
+      <div style="text-align: right; margin-bottom: 32px;">
+        <a href="#" id="forgot-password-link" style="font-family: 'Inter'; font-weight: 400; font-size: 14px; color: #5b5ff7; text-decoration: none; transition: color 0.2s ease; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block;" 
+           onmouseover="this.style.color='#7c3aed'" 
+           onmouseout="this.style.color='#5b5ff7'"
+           onclick="if(window.authPopup && window.authPopup.switchToForgotPassword) { window.authPopup.switchToForgotPassword(); } return false;">Forgot password?</a>
+      </div>
+
+      <!-- Sign In Button -->
+      <button id="sign-in-btn" style="width: 100%; padding: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #5b5ff7 100%); border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease; margin-bottom: 24px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0px 6px 25px rgba(139, 92, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        <span style="font-family: 'Inter'; font-weight: 600; font-size: 16px; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Sign In</span>
+      </button>
+    </div>
+
+    <!-- Register Form (Hidden by default) -->
+    <div id="register-form" style="display: none; width: 100%;">
+      <!-- Create Account Title -->
+      <h2 style="text-align: center; margin: 0 0 40px 0; font-family: 'Inter'; font-weight: 700; font-size: 32px; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Create Account</h2>
+      
+      <!-- Error Message -->
+      <div id="register-error" style="display: none; padding: 12px; margin-bottom: 20px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; color: #F87171; font-family: 'Inter'; font-size: 14px; text-align: center;"></div>
+      
+      <!-- Email Input -->
+      <div style="margin-bottom: 24px;">
+        <!-- Email Label -->
+        <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Email</label>
+        
+        <!-- Email Input Field -->
+        <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+          <!-- Email Icon -->
+          <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+            </svg>
+          </div>
+          
+          <input id="register-email" type="email" placeholder="your@email.com" style="width: 100%; padding: 16px 16px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+        </div>
+      </div>
+
+      <!-- Username Input -->
+      <div style="margin-bottom: 24px;">
+        <!-- Username Label -->
+        <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Username</label>
+        
+        <!-- Username Input Field -->
+        <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+          <!-- User Icon -->
+          <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+            </svg>
+          </div>
+          
+          <input id="register-username" type="text" placeholder="your_username" style="width: 100%; padding: 16px 16px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+        </div>
+      </div>
+
+      <!-- Password Input -->
+      <div style="margin-bottom: 24px;">
+        <!-- Password Label -->
+        <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Password</label>
+        
+        <!-- Password Input Field -->
+        <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+          <!-- Lock Icon -->
+          <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          
+          <input id="register-password" type="password" placeholder="••••••••" style="width: 100%; padding: 16px 52px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+          
+          <!-- Eye Icon -->
+          <button id="toggle-register-password" type="button" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: none; border: none; cursor: pointer; padding: 0;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Confirm Password Input -->
+      <div style="margin-bottom: 16px;">
+        <!-- Confirm Password Label -->
+        <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Confirm Password</label>
+        
+        <!-- Confirm Password Input Field -->
+        <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+          <!-- Lock Icon -->
+          <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+            </svg>
+          </div>
+          
+          <input id="confirm-password" type="password" placeholder="••••••••" style="width: 100%; padding: 16px 52px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+          
+          <!-- Eye Icon -->
+          <button id="toggle-confirm-password" type="button" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: none; border: none; cursor: pointer; padding: 0;">
+            <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Password Match Error -->
+      <div id="password-match-error" style="display: none; padding: 8px; margin-bottom: 16px; color: #F87171; font-family: 'Inter'; font-size: 12px; text-align: center;">Passwords do not match</div>
+
+      <!-- Create Account Button -->
+      <button id="create-account-btn" style="width: 100%; padding: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #5b5ff7 100%); border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease; margin-bottom: 24px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0px 6px 25px rgba(139, 92, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+        <span style="font-family: 'Inter'; font-weight: 600; font-size: 16px; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Create Account</span>
+      </button>
+    </div>
+
+    <!-- Forgot Password Form (Hidden by default) -->
+    <div id="forgot-password-form" style="display: none; width: 100%;">
+      <!-- Reset Password Title -->
+      <h2 style="text-align: center; margin: 0 0 40px 0; font-family: 'Inter'; font-weight: 700; font-size: 32px; color: #FFFFFF; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Reset Password</h2>
+      
+      <!-- Error Message -->
+      <div id="forgot-error" style="display: none; padding: 12px; margin-bottom: 20px; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: 8px; color: #F87171; font-family: 'Inter'; font-size: 14px; text-align: center;"></div>
+      
+      <!-- Success Message -->
+      <div id="forgot-success" style="display: none; padding: 12px; margin-bottom: 20px; background: rgba(34, 197, 94, 0.1); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: 8px; color: #4ADE80; font-family: 'Inter'; font-size: 14px; text-align: center;"></div>
+      
+      <!-- Step 1: Email Input -->
+      <div id="email-step" style="width: 100%;">
+        <p style="text-align: center; margin-bottom: 24px; font-family: 'Inter'; font-size: 14px; color: #9CA3AF; line-height: 1.5;">Enter your email address and we'll send you a verification code to reset your password.</p>
+        
+        <!-- Email Input -->
+        <div style="margin-bottom: 32px;">
+          <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF;">Email</label>
+          
+          <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+            <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+              <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207"></path>
+              </svg>
+            </div>
+            
+            <input id="forgot-email" type="email" placeholder="your@email.com" style="width: 100%; padding: 16px 16px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+          </div>
+        </div>
+
+        <button id="send-code-btn" style="width: 100%; padding: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #5b5ff7 100%); border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease; margin-bottom: 16px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0px 6px 25px rgba(139, 92, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          <span style="font-family: 'Inter'; font-weight: 600; font-size: 16px; color: #FFFFFF;">Send Verification Code</span>
+        </button>
+
+        <!-- Back to Login Button -->
+        <button id="back-to-login-from-email" style="width: 100%; padding: 12px; background: transparent; border: 1px solid #5b5ff7; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 24px;" onmouseover="this.style.background='rgba(91,95,247,0.1)'" onmouseout="this.style.background='transparent'">
+          <span style="font-family: 'Inter'; font-weight: 500; font-size: 14px; color: #5b5ff7;">← Back to Login</span>
+        </button>
+      </div>
+
+      <!-- Step 2: Verification Code Input -->
+      <div id="verification-step" style="display: none; width: 100%;">
+        <p style="text-align: center; margin-bottom: 24px; font-family: 'Inter'; font-size: 14px; color: #9CA3AF; line-height: 1.5;">Enter the 6-digit verification code sent to your email.</p>
+        
+        <!-- Verification Code Input -->
+        <div style="margin-bottom: 32px;">
+          <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF;">Verification Code</label>
+          
+          <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden;">
+            <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+              <svg style="width: 20px; height: 20px; color: #9CA3AF;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+              </svg>
+            </div>
+            
+            <input id="verification-code" type="text" placeholder="123456" maxlength="6" style="width: 100%; padding: 16px 16px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF; outline: none; box-sizing: border-box; letter-spacing: 2px;" onfocus="this.style.color='#FFFFFF'" onblur="this.style.color='#9CA3AF'">
+          </div>
+        </div>
+
+        <button id="verify-code-btn" style="width: 100%; padding: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #5b5ff7 100%); border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease; margin-bottom: 16px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0px 6px 25px rgba(139, 92, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          <span style="font-family: 'Inter'; font-weight: 600; font-size: 16px; color: #FFFFFF;">Verify Code</span>
+        </button>
+
+        <button id="resend-code-btn" style="width: 100%; padding: 12px; background: transparent; border: 1px solid #5b5ff7; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 16px;" onmouseover="this.style.background='rgba(91,95,247,0.1)'" onmouseout="this.style.background='transparent'">
+          <span style="font-family: 'Inter'; font-weight: 500; font-size: 14px; color: #5b5ff7;">Resend Code</span>
+        </button>
+
+        <!-- Back to Login Button -->
+        <button id="back-to-login-from-verification" style="width: 100%; padding: 12px; background: transparent; border: 1px solid #9CA3AF; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; margin-bottom: 24px;" onmouseover="this.style.background='rgba(156,163,175,0.1)'; this.style.borderColor='#FFFFFF'" onmouseout="this.style.background='transparent'; this.style.borderColor='#9CA3AF'">
+          <span style="font-family: 'Inter'; font-weight: 500; font-size: 14px; color: #9CA3AF;">← Back to Login</span>
+        </button>
+      </div>
+
+      <!-- Step 3: Password Reset Success -->
+      <div id="password-revealed-step" style="display: none; width: 100%;">
+        <p style="text-align: center; margin-bottom: 24px; font-family: 'Inter'; font-size: 14px; color: #4ADE80; line-height: 1.5;">Verification successful! Here is your password:</p>
+        
+        <!-- Revealed Password -->
+        <div style="margin-bottom: 32px;">
+          <label style="display: block; margin-bottom: 8px; font-family: 'Inter'; font-weight: 400; font-size: 16px; color: #9CA3AF;">Your Password</label>
+          
+          <div style="position: relative; background: #2a3441; border-radius: 8px; overflow: hidden; border: 2px solid #4ADE80;">
+            <div style="position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px;">
+              <svg style="width: 20px; height: 20px; color: #4ADE80;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"></path>
+              </svg>
+            </div>
+            
+            <input id="revealed-password" type="text" readonly style="width: 100%; padding: 16px 52px 16px 52px; background: transparent; border: none; font-family: 'Inter'; font-weight: 600; font-size: 16px; color: #4ADE80; outline: none; box-sizing: border-box; text-align: center; letter-spacing: 1px;">
+            
+            <button id="copy-password-btn" type="button" style="position: absolute; right: 16px; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: none; border: none; cursor: pointer; padding: 0;">
+              <svg style="width: 20px; height: 20px; color: #4ADE80;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button id="back-to-login-btn" style="width: 100%; padding: 16px; background: linear-gradient(90deg, #8b5cf6 0%, #5b5ff7 100%); border-radius: 8px; border: none; cursor: pointer; transition: all 0.3s ease; margin-bottom: 24px;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0px 6px 25px rgba(139, 92, 246, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'">
+          <span style="font-family: 'Inter'; font-weight: 600; font-size: 16px; color: #FFFFFF;">Back to Login</span>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
