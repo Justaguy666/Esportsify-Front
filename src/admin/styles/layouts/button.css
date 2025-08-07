@@ -1,0 +1,28 @@
+.btn
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to right, #7C3AED, #3D5AF1);
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 8px;
+    gap: 10px;
+    cursor: pointer;
+    margin: 0px 30px;
+}
+
+.btn-icon
+{
+    color: #A5B4FC;
+    padding-top: 2px;
+}
+
+.btn span
+{
+    color: white;
+    padding: 0 10px;
+}
+
+

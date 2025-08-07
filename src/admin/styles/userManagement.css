@@ -1,0 +1,75 @@
+.user-management-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-management-title
+{
+    color: white;
+    margin: 20px 40px;
+}
+
+.statistic
+{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 20px;
+}
+
+.display-container
+{
+    margin: 10px 10px;
+    display: flex;
+}
+
+.statistic-text
+{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    justify-content: right;
+    margin: 10px 20px;
+    padding: 0;
+    font-size: 14px;
+}
+
+.number
+{
+    font-weight: bold;
+    color: white;
+    font-size: 20px;
+}
+
+.statistic-icon
+{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+    margin: 10px 20px;
+    margin-right: 0;
+    padding: 4px 8px;
+    padding-bottom: 4px;
+    border-radius: 10px;
+}
+
+.total-users-icon
+{
+    background: linear-gradient(to right, #2575FC, #6A11CB);
+    color: black;
+}
+
+.total-active-users-icon
+{
+    background: linear-gradient(to right, #EF4444, #F59E0B);
+    color: black;
+}
+
+.total-new-users-icon
+{
+    background: linear-gradient(to right, #059669, #10B981);
+    color: black;
+}

@@ -1,0 +1,12 @@
+.tournament-management-header
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tournament-management-title
+{
+    color: white;
+    margin: 20px 40px;
+}

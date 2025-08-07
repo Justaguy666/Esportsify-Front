@@ -1,0 +1,228 @@
+span {
+    color: #A5B4FC;
+}
+
+#header-container
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+}
+
+#header
+{
+    background: linear-gradient(to right, #0F0F23, #1A1A2E, #16213E);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    width: 100%;
+    border-bottom: 1px solid #3D5AF1;
+    box-shadow: 0 4px 10px 0px rgba(61, 90, 241, 0.4);
+}
+
+.header-left
+{
+    margin-left: 40px;
+}
+
+.header-right
+{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+}
+
+.link
+{
+    display: flex;
+}
+
+.home, .manage, .media
+{
+    color: #A5B4FC;
+    padding: 0 40px;
+}
+
+.manage
+{
+    cursor: pointer;
+    position: relative;
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+.manage::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 20px;
+}
+
+.dropdown
+{
+    display: none;
+    position: absolute;
+    top: 30px;
+    padding-right: 30px;
+}
+
+.manage:hover .dropdown,
+.dropdown:hover {
+    display: block;
+    visibility: visible;
+    transition-delay: 2s;
+}
+
+.item
+{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 16px 14px;
+    font-size: 15px;
+    box-sizing: border-box;
+    width: 100%;
+    opacity: 0.8;
+}
+
+.user-icon
+{
+    background: linear-gradient(to right, #2575FC, #6A11CB);
+    color: black;
+}
+
+.game-icon
+{
+    background: linear-gradient(to right, #F7971E, #FFD200);
+    color: black;
+}
+
+.participant-icon
+{
+    background: linear-gradient(to right, #667EEA, #764BA2);
+    color: black;
+}
+
+.tournament-icon
+{
+    background: linear-gradient(to right, #FF416C, #FF4B2B);
+    color: black;
+}
+
+.match-icon
+{
+    background: linear-gradient(to right, #43CEA2, #185A9D);
+    color: black;
+}
+
+.registration-icon
+{
+    background: linear-gradient(to right, #00B09B, #96C93D);
+    color: black;
+}
+
+.rule-icon
+{
+    background: linear-gradient(to right, #FF0000, #E100FF);
+    color: black;
+}
+
+.media:hover .dropdown,
+.dropdown:hover {
+    display: block;
+    visibility: visible;
+    transition-delay: 3s;
+}
+
+.media
+{
+    cursor: pointer;
+    position: relative;
+    visibility: visible;
+    transition-delay: 0.3s;
+}
+
+.media::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    height: 20px;
+}
+
+.news-icon
+{
+    background: linear-gradient(to right, #00C6FF, #0072FF);
+    color: black;
+}
+
+.highlight-icon
+{
+    background: linear-gradient(to right, #F953C6, #B91D73);
+    color: black;
+}
+
+.live-icon
+{
+    background: linear-gradient(to right, #FF512F, #DD2476);
+    color: black;
+}
+
+.item:hover
+{
+    background: linear-gradient(to right, #7B2FF7, #9F44D3);
+    box-shadow: 0px 5px 18.35px 0px rgba(61, 90, 241, 0.4);
+    border-radius: 10px;
+    opacity: 1;
+}
+
+.item:hover span
+{
+    color: white;
+}
+
+.position-text
+{
+    color: white;
+    padding: 6px 30px;
+    margin-right: 20px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #F19D3D, #ED6A3A);
+    box-shadow: 0px 0px 18.52px 0px rgba(61, 90, 241, 0.4);
+}
+
+.nav-link.active-home {
+    position: relative;
+}
+
+.nav-link.active-home::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: 25%;
+    height: 4px;
+    width: 50%;
+    background: linear-gradient(to right, #3D5AF1, #7C3AED);
+    border-radius: 2px;
+}
+
+.nav-link.active-manage {
+    position: relative;
+}
+
+.nav-link.active-manage::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: -10%;
+    height: 4px;
+    width: 120%;
+    background: linear-gradient(to right, #3D5AF1, #7C3AED);
+    border-radius: 2px;
+}
