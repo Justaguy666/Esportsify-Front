@@ -41,22 +41,16 @@ a {
     margin-top: 120px;
 }
 
-.export-data-container
+.management-header
 {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 40px;
-    cursor: pointer;
 }
 
-.export-data-icon
+.management-title
 {
-    color: #A5B4FC;
-    margin: 4px 12px;
+    color: white;
+    margin: 20px 40px;
 }
 
-.export-data-text
-{
-    margin: 4px 12px;
-}

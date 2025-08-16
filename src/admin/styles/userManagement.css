@@ -1,16 +1,3 @@
-.user-management-header
-{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.user-management-title
-{
-    color: white;
-    margin: 20px 40px;
-}
-
 .statistic
 {
     display: grid;
