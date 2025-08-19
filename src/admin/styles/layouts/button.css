@@ -10,7 +10,11 @@
     padding: 8px;
     gap: 10px;
     cursor: pointer;
-    margin: 0px 30px;
+}
+
+.btn:hover 
+{
+    filter: brightness(1.2);
 }
 
 .btn-icon
@@ -25,4 +29,8 @@
     padding: 0 10px;
 }
 
+.add-new-entry-btn
+{
+    margin-right: 30px;
+}
 

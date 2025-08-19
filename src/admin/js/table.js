@@ -1,7 +1,14 @@
-import { users, participants, tournaments } from './data/sample.js'
+import { users, games, participants, tournaments, news, highlights, rules, player_matches, team_matches } from './data/sample.js'
 import { renderUserTableRows } from './pages/user-management.js';
 import { renderTournamentTableRows } from './pages/tournament-management.js'
-  
+import { renderPlayerTableRows, renderTeamTableRows } from './pages/participant-management.js'
+import { renderGameTableRows } from './pages/game-management.js'
+import { renderNewsTableRows } from './pages/news-management.js'
+import { renderHighlightTableRows } from './pages/highlight-management.js'
+import { renderRuleTableRows } from './pages/rule-management.js'
+import { renderPlayerMatchTableRows } from './pages/match-management.js'  
+import { renderTeamMatchTableRows } from './pages/match-management.js'  
+
 function paginate(data, page, rowsPerPage) {
     const total = data.length;
     const totalPages = Math.ceil(total / rowsPerPage);
@@ -80,6 +87,14 @@ function resolveRendererByRole(role) {
     const map = {
       user: renderUserTableRows,
       tournament: renderTournamentTableRows,
+      participant_player: renderPlayerTableRows,
+      participant_team: renderTeamTableRows,
+      game: renderGameTableRows,
+      news: renderNewsTableRows,
+      highlight: renderHighlightTableRows,
+      rule: renderRuleTableRows,
+      player_match: renderPlayerMatchTableRows,
+      team_match: renderTeamMatchTableRows,
     };
     return map[role];
 }
@@ -88,30 +103,37 @@ function resolveRoleLabel(role) {
     const map = {
       user: 'users',
       tournament: 'tournaments',
-      participant: 'participants',
+      participant_player: 'players',
+      participant_team: 'teams',
+      game: 'games',
+      news: 'news',
+      highlight: 'highlights',
+      rule: 'rules',
+      player_match: 'player matches',
+      team_match: 'team matches',
     };
     return map[role] ?? 'items';
 }
   
 function mountTableWithPagination({ data, role, rowsPerPage = 5 }) {
-    const renderRows = resolveRendererByRole(role);
-    if (!renderRows) throw new Error(`Unknown role: ${role}`);
-  
-    const roleLabel = resolveRoleLabel(role);
-    let state = { page: 1, rowsPerPage };
-  
-    function update(newPage = state.page) {
-      state.page = newPage;
-      const paging = paginate(data, state.page, state.rowsPerPage);
-      renderRows(paging.items);
-      renderPagination(paging, roleLabel, (goToPage) => {
-        if (goToPage >= 1 && goToPage <= paging.totalPages) update(goToPage);
-      });
-    }
-  
-    update(1);
+  const renderRows = resolveRendererByRole(role);
+  if (!renderRows) throw new Error(`Unknown role: ${role}`);
+
+  const roleLabel = resolveRoleLabel(role);
+  let state = { page: 1, rowsPerPage };
+
+  function update(newPage = state.page) {
+    state.page = newPage;
+    const paging = paginate(data, state.page, state.rowsPerPage);
+    renderRows(paging.items);
+    renderPagination(paging, roleLabel, (goToPage) => {
+      if (goToPage >= 1 && goToPage <= paging.totalPages) update(goToPage);
+    });
+  }
+
+  update(1);
 }
-  
+
 
 export function renderTable() {
   
@@ -119,8 +141,15 @@ export function renderTable() {
     const mappingPage = {
       "index.html": null,
       "user-management.html": { role: "user", rowsPerPage: 5 , data: users},
-      "participant-management.html": { role: "participant", rowsPerPage: 5 , data : participants},
-      "tournament-management.html": { role: "tournament", rowsPerPage: 5 , data : tournaments}
+      "participant-player-management.html": { role: "participant_player", rowsPerPage: 5 , data : participants.players},
+      "participant-team-management.html": { role: "participant_team", rowsPerPage: 5 , data : participants.teams},
+      "tournament-management.html": { role: "tournament", rowsPerPage: 5 , data : tournaments},
+      "game-management.html": { role: "game", rowsPerPage: 5 , data : games},
+      "news-management.html": { role: "news", rowsPerPage: 5 , data : news},
+      "highlight-management.html": { role: "highlight", rowsPerPage: 5 , data : highlights},
+      "rule-management.html": { role: "rule", rowsPerPage: 5 , data : rules},
+      "match-players-management.html": { role: "player_match", rowsPerPage: 5 , data : player_matches},
+      "match-teams-management.html": { role: "team_match", rowsPerPage: 5 , data : team_matches}
     };
   
     const pageConfig = mappingPage[currentPath];

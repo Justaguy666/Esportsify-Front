@@ -24,7 +24,7 @@ function loadHeader() {
                           <span>User</span>
                       </a>
 
-                      <a href="#" class="item">
+                      <a href="/src/admin/game/game-management.html" class="item">
                           <div class="game-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                   <path fill="currentColor" d="M7.97 16L5 19c-.33.3-.77.5-1.25.5A1.75 1.75 0 0 1 2 17.75v-.25l1-7.38A4.524 4.524 0 0 1 7.5 6h9c2.36 0 4.29 1.81 4.5 4.12l1 7.38v.25a1.75 1.75 0 0 1-1.75 1.75c-.48 0-.92-.2-1.25-.5l-2.97-3zM7 8v2H5v1h2v2h1v-2h2v-1H8V8zm9.5 0a.75.75 0 0 0-.75.75a.75.75 0 0 0 .75.75a.75.75 0 0 0 .75-.75a.75.75 0 0 0-.75-.75m-1.75 1.75a.75.75 0 0 0-.75.75a.75.75 0 0 0 .75.75a.75.75 0 0 0 .75-.75a.75.75 0 0 0-.75-.75m3.5 0a.75.75 0 0 0-.75.75a.75.75 0 0 0 .75.75a.75.75 0 0 0 .75-.75a.75.75 0 0 0-.75-.75M16.5 11.5a.75.75 0 0 0-.75.75a.75.75 0 0 0 .75.75a.75.75 0 0 0 .75-.75a.75.75 0 0 0-.75-.75"/>
@@ -33,7 +33,7 @@ function loadHeader() {
                           <span>Game</span>
                       </a>
                       
-                      <a href="/src/admin/participant/participant-management.html" class="item">
+                      <a href="/src/admin/participant/participant-player-management.html" class="item">
                           <div class="participant-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                   <path fill="currentColor" d="M12 5.5A3.5 3.5 0 0 1 15.5 9a3.5 3.5 0 0 1-3.5 3.5A3.5 3.5 0 0 1 8.5 9A3.5 3.5 0 0 1 12 5.5M5 8c.56 0 1.08.15 1.53.42c-.15 1.43.27 2.85 1.13 3.96C7.16 13.34 6.16 14 5 14a3 3 0 0 1-3-3a3 3 0 0 1 3-3m14 0a3 3 0 0 1 3 3a3 3 0 0 1-3 3c-1.16 0-2.16-.66-2.66-1.62a5.54 5.54 0 0 0 1.13-3.96c.45-.27.97-.42 1.53-.42M5.5 18.25c0-2.07 2.91-3.75 6.5-3.75s6.5 1.68 6.5 3.75V20h-13zM0 20v-1.5c0-1.39 1.89-2.56 4.45-2.9c-.59.68-.95 1.62-.95 2.65V20zm24 0h-3.5v-1.75c0-1.03-.36-1.97-.95-2.65c2.56.34 4.45 1.51 4.45 2.9z"/>
@@ -51,7 +51,7 @@ function loadHeader() {
                           <span>Tournament</span>
                       </a>
 
-                      <a href="#" class="item">
+                      <a href="/src/admin/match/match-players-management.html" class="item">
                           <div class="match-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                   <path fill="currentColor" d="m2 20l6-8l-6-8h13q.475 0 .9.213t.7.587L22 12l-.125.175Q21 11.6 20.025 11.3T18 11q-2.925 0-4.962 2.038T11 17.975q0 .5.075 1.013T11.3 20zm16 3q-2.075 0-3.537-1.463T13 18t1.463-3.537T18 13t3.538 1.463T23 18t-1.463 3.538T18 23m-.725-2.75l3.475-3.45l-1.05-1.05l-2.425 2.375l-.975-.975l-1.05 1.075z"/>
@@ -60,7 +60,7 @@ function loadHeader() {
                           <span>Match</span>
                       </a>
                       
-                      <a href="#" class="item">
+                      <a href="/src/admin/registration/registration-players-management.html" class="item">
                           <div class="registration-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                   <path fill="currentColor" d="M15 14c-2.67 0-8 1.33-8 4v2h16v-2c0-2.67-5.33-4-8-4m-9-4V7H4v3H1v2h3v3h2v-3h3v-2m6 2a4 4 0 0 0 4-4a4 4 0 0 0-4-4a4 4 0 0 0-4 4a4 4 0 0 0 4 4"/>
@@ -69,7 +69,7 @@ function loadHeader() {
                           <span>Registration</span>
                       </a>
                       
-                      <a href="#" class="item">
+                      <a href="/src/admin/rule/rule-management.html" class="item">
                           <div class="rule-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 32 32">
                                   <path fill="none" d="M9 16h14v2H9zm0-6h14v2H9z"/><path fill="currentColor" d="M26 2H6a2 2 0 0 0-2 2v13a10.98 10.98 0 0 0 5.824 9.707L16 30l6.176-3.293A10.98 10.98 0 0 0 28 17V4a2 2 0 0 0-2-2m-3 16H9v-2h14Zm0-6H9v-2h14Z"/>
@@ -82,7 +82,7 @@ function loadHeader() {
               <div class="media">
                 <span class="media-text nav-link">Media</span>
                 <div class="dropdown box">
-                      <a href="#" class="item">
+                      <a href="/src/admin/news/news-management.html" class="item">
                           <div class="news-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                                   <path fill="currentColor" d="M5 21q-.825 0-1.412-.587T3 19V5q0-.825.588-1.412T5 3h11l5 5v11q0 .825-.587 1.413T19 21zm2-4h10v-2H7zm0-4h10v-2H7zm8-4h4l-4-4zM7 9h5V7H7z"/>
@@ -91,22 +91,13 @@ function loadHeader() {
                           <span>News</span>
                       </a>
 
-                      <a href="#" class="item">
+                      <a href="/src/admin/highlight/highlight-management.html" class="item">
                           <div class="highlight-icon icon">
                               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><g fill="none">
                                   <path d="m12.594 23.258l-.012.002l-.071.035l-.02.004l-.014-.004l-.071-.036q-.016-.004-.024.006l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.016-.018m.264-.113l-.014.002l-.184.093l-.01.01l-.003.011l.018.43l.005.012l.008.008l.201.092q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.003-.011l.018-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="M9.107 5.448c.598-1.75 3.016-1.803 3.725-.159l.06.16l.807 2.36a4 4 0 0 0 2.276 2.411l.217.081l2.36.806c1.75.598 1.803 3.016.16 3.725l-.16.06l-2.36.807a4 4 0 0 0-2.412 2.276l-.081.216l-.806 2.361c-.598 1.75-3.016 1.803-3.724.16l-.062-.16l-.806-2.36a4 4 0 0 0-2.276-2.412l-.216-.081l-2.36-.806c-1.751-.598-1.804-3.016-.16-3.724l.16-.062l2.36-.806A4 4 0 0 0 8.22 8.025l.081-.216zM19 2a1 1 0 0 1 .898.56l.048.117l.35 1.026l1.027.35a1 1 0 0 1 .118 1.845l-.118.048l-1.026.35l-.35 1.027a1 1 0 0 1-1.845.117l-.048-.117l-.35-1.026l-1.027-.35a1 1 0 0 1-.118-1.845l.118-.048l1.026-.35l.35-1.027A1 1 0 0 1 19 2"/></g>
                               </svg>
                           </div>
                           <span>Highlight</span>
-                      </a>
-                      
-                      <a href="#" class="item">
-                          <div class="live-icon icon">
-                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 20 20">
-                                  <path fill="currentColor" d="M5.453 4.167a.726.726 0 0 0-1.027-.01A8.23 8.23 0 0 0 2 10a8.23 8.23 0 0 0 2.604 6.015a.725.725 0 0 0 1.01-.025c.316-.316.277-.819-.027-1.11A6.73 6.73 0 0 1 3.5 10c0-1.846.741-3.52 1.943-4.738c.29-.295.32-.785.01-1.095M7.214 5.93a.714.714 0 0 0-1.008-.016A5.73 5.73 0 0 0 4.5 10c0 1.692.73 3.213 1.893 4.265a.713.713 0 0 0 .983-.038c.328-.328.267-.844-.041-1.134A4.24 4.24 0 0 1 6 10c0-1.15.457-2.194 1.2-2.96c.286-.294.333-.793.014-1.111m5.572 0a.714.714 0 0 1 1.008-.016A5.73 5.73 0 0 1 15.5 10c0 1.692-.73 3.213-1.893 4.265a.713.713 0 0 1-.983-.038c-.328-.328-.267-.844.041-1.134A4.24 4.24 0 0 0 14 10c0-1.15-.457-2.194-1.2-2.96c-.286-.294-.333-.793-.014-1.111m1.761-1.762a.726.726 0 0 1 1.027-.01A8.23 8.23 0 0 1 18 10a8.23 8.23 0 0 1-2.604 6.015a.725.725 0 0 1-1.01-.025c-.316-.316-.277-.819.028-1.11A6.73 6.73 0 0 0 16.5 10c0-1.846-.741-3.52-1.943-4.738c-.29-.295-.32-.785-.01-1.095M10 8.5a1.5 1.5 0 1 0 0 3a1.5 1.5 0 0 0 0-3"/>
-                              </svg>
-                          </div>
-                          <span>Live</span>
                       </a>
                   </div>
               </div>
@@ -122,12 +113,30 @@ function loadHeader() {
 function createLineOfCurrentPage() {
     const mappingPage = {
         "index.html": "home",
+        // Management pages
         "user-management.html": "manage-text",
         "game-management.html": "manage-text",
         "participant-management.html": "manage-text",
+        "participant-player-management.html": "manage-text",    
+        "participant-team-management.html": "manage-text",
         "tournament-management.html": "manage-text",
+        "news-management.html": "media-text",
+        "highlight-management.html": "media-text",
+        "rule-management.html": "manage-text",
+        "match-players-management.html": "manage-text",
+        "match-teams-management.html": "manage-text",
+        "registration-players-management.html": "manage-text",
+        "registration-teams-management.html": "manage-text",
+        // Addiction pages (creation forms)
+        "game-addiction.html": "manage-text",
+        "participant-player-addiction.html": "manage-text",
+        "participant-team-addiction.html": "manage-text",
         "tournament-addiction.html": "manage-text",
-        "media.html": "media"
+        "news-addiction.html": "media-text",
+        "highlight-addiction.html": "media-text",
+        "rule-addiction.html": "manage-text",
+        "match-players-addiction.html": "manage-text",
+        "match-teams-addiction.html": "manage-text"
     };
 
     const fullPath = window.location.pathname;
@@ -140,6 +149,8 @@ function createLineOfCurrentPage() {
                 link.classList.add("active-home");
             } else if (currentClass === "manage-text") {
                 link.classList.add("active-manage");
+            } else if (currentClass === "media-text") {
+                link.classList.add("active-media");
             }
         }
     });

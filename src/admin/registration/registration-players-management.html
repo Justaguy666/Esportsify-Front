@@ -3,21 +3,23 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Esportsify - Tournament management</title>
+        <title>Esportsify - Registration management</title>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="../styles/global.css">
         <link rel="stylesheet" href="../styles/components/header.css">
         <link rel="stylesheet" href="../styles/layouts/box.css">
         <link rel="stylesheet" href="../styles/layouts/icon.css">
         <link rel="stylesheet" href="../styles/layouts/table.css">
+        <link rel="stylesheet" href="../styles/layouts/addElement.css">
         <link rel="stylesheet" href="../styles/layouts/button.css">
+        <link rel="stylesheet" href="../styles/registration.css">
     </head>
     <body>
         <div id="header-container"></div>
         <div id="body-container">
             <!-- Title -->
             <div class="management-header">
-                <h1 class="management-title">Tournament Management</h1>
+                <h1 class="management-title">Registration Management</h1>
                 <div class="export-data-container box">
                     <div class="export-data-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -30,13 +32,13 @@
                 </div>
             </div>
 
-            <!-- Table -->
-            <div class="table-container box">
+            <div class="participant-button-container">
+                <button style="margin-left: 40px;" class="add-player-btn btn selector"><span>Players</span></button>
+                <button style="margin-left: 10px;" class="add-team-btn btn"><span>Teams</span></button>
+            </div>
+            <div class="registration-header-container box">
                 <div class="multitasking-container">
-                    <div class="filter-container">
-                        <div class="user-search-bar">
-                            <input type="text" class="search-input box" placeholder="Search tournament...">
-                        </div>
+                    <div class="filter-container" style="display: grid; grid-template-columns: 0.4fr 0.4fr 1fr 1fr;">
                         <div class="filter-by-status-container filter-box">
                             <div class="filter-by-status-text">
                                 <span>All status</span>
@@ -49,7 +51,7 @@
                         </div>
                         <div class="filter-by-date-container filter-box">
                             <div class="filter-by-date-text">
-                                <span>Sort by date</span>
+                                <span>All games</span>
                             </div>
                             <div class="filter-by-date-icon filter-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -57,45 +59,23 @@
                                 </svg>
                             </div>
                         </div>
-                        <div class="filter-by-incr-desc filter-box filter-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h4q.425 0 .713.288T9 17t-.288.713T8 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h10q.425 0 .713.288T15 12t-.288.713T14 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"/>
-                            </svg>
+                        <div class="stat-registration-container">
+                            <div><span>Total: <strong style="color: white;">4</strong> </span></div>
+                            <div><span>Pending: <strong style="color: #F59E0B;">2</strong> </span></div>
+                            <div><span>Approved: <strong style="color: #10B981;">1</strong> </span></div>
+                            <div><span>Rejected: <strong style="color: #EF4444;">1</strong></span></div>
+                        </div>
+                        <div class="user-search-bar">
+                            <input type="text" class="search-input box" placeholder="Search...">
                         </div>
                     </div>
-                    <button class="add-new-entry-btn btn">
-                        <div class="add-btn-icon btn-icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/>
-                            </svg>
-                        </div>
-                        <span>Add New Tournament</span>
-                    </button>
                 </div>
-                
-                <table>
-                    <thead>
-                      <!-- Cột tiêu đề -->
-                      <tr>
-                        <th>ID</th>
-                        <th>Game name</th>
-                        <th>Organizer</th>
-                        <th>Last modified</th>
-                        <th>Views</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <!-- Dữ liệu sẽ được render bằng JS -->
-                    </tbody>
-                </table>
-                  
-                <div class="pagination-container">
-                    <div id="pagination-info" class="pagination-info"></div>
-                    <div id="pagination-controls" class="pagination-controls"></div>
+                <div class="registration-forms-container">
+                    <!-- Dynamic forms will be generated here by JavaScript -->
                 </div>
             </div>
         </div>
         <script type="module" src="../js/main.js"></script>
+        <script type="module" src="../js/pages/registration-player-management.js"></script>
     </body>
 </html>

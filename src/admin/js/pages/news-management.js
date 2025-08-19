@@ -1,17 +1,17 @@
-export function renderTournamentTableRows(tournamentsPageItems) {
+export function renderNewsTableRows(newsPageItems) {
     const tbody = document.getElementsByTagName('tbody')[0];
     tbody.classList.remove('animate');
     tbody.innerHTML = '';
   
-    tournamentsPageItems.forEach(tournament => {
+    newsPageItems.forEach(news => {
       const row = document.createElement('tr');
       row.classList.add('tournament-row');
       row.innerHTML = `
-        <td>${tournament.id}</td>
-        <td>${tournament.game_name}</td>
-        <td>${tournament.organizer}</td>
-        <td>${tournament.last_modified}</td>
-        <td>${tournament.views}</td>
+        <td>${news.id}</td>
+        <td>${news.title}</td>
+        <td>${news.description}</td>
+        <td>${news.last_modified}</td>
+        <td>${news.views}</td>
         <td>
           <div class="actions">
             <button class="edit-btn" title="Edit">
@@ -29,32 +29,11 @@ export function renderTournamentTableRows(tournamentsPageItems) {
                 <path fill="currentColor" d="M17 9h4q.425 0 .713.288T22 10t-.288.713T21 11h-4q-.425 0-.712-.288T16 10t.288-.712T17 9m-8 3q-1.65 0-2.825-1.175T5 8t1.175-2.825T9 4t2.825 1.175T13 8t-1.175 2.825T9 12m-8 6v-.8q0-.85.438-1.562T2.6 14.55q1.55-.775 3.15-1.162T9 13t3.25.388t3.15 1.162q.725.375 1.163 1.088T17 17.2v.8q0 .825-.587 1.413T15 20H3q-.825 0-1.412-.587T1 18"/>
               </svg>
             </button>
-            <button class="more-btn" title="More">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                <path fill="currentColor" d="m12 15.4-6-6L7.4 8l4.6 4.6L16.6 8L18 9.4z"/>
-              </svg>
-            </button>
           </div>
         </td>
       `;
       tbody.appendChild(row);
-  
-      const detailsRow = document.createElement('tr');
-      detailsRow.classList.add('tournament-details-row', 'hidden');
-      detailsRow.innerHTML = `
-        <td colspan="6">
-          <div class="tournament-details">
-            <h3>Tournaments Details</h3>
-            <p><strong>Participants:</strong> ${tournament.participants}</p>
-            <p><strong>Format:</strong> ${tournament.format}</p>
-            <p><strong>Prize Pool:</strong> ${tournament.prize_pool}</p>
-            <p><strong>Registration:</strong> ${tournament.registration}</p>
-            <p><strong>Duration:</strong> ${tournament.start_end}</p>
-          </div>
-        </td>
-      `;
-      tbody.appendChild(detailsRow);
     });
   
-    requestAnimationFrame(() => tbody.classList.add('animate'));
+  requestAnimationFrame(() => tbody.classList.add('animate'));
 }

@@ -226,3 +226,18 @@ span {
     background: linear-gradient(to right, #3D5AF1, #7C3AED);
     border-radius: 2px;
 }
+
+.nav-link.active-media {
+    position: relative;
+}
+
+.nav-link.active-media::after {
+    content: "";
+    position: absolute;
+    bottom: -10px;
+    left: -10%;
+    height: 4px;
+    width: 120%;
+    background: linear-gradient(to right, #3D5AF1, #7C3AED);
+    border-radius: 2px;
+}
