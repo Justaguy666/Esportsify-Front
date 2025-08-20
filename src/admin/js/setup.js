@@ -7,6 +7,29 @@ function setupNavigationButton(selector, targetUrl) {
     }
 }
 
+const LOCKED_ICON = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M6 22q-.825 0-1.412-.587T4 20V10q0-.825.588-1.412T6 8h1V6q0-2.075 1.463-3.537T12 1t3.538 1.463T17 6v2h1q.825 0 1.413.588T20 10v10q0 .825-.587 1.413T18 22zm6-5q.825 0 1.413-.587T14 15t-.587-1.412T12 13t-1.412.588T10 15t.588 1.413T12 17M9 8h6V6q0-1.25-.875-2.125T12 3t-2.125.875T9 6z"/>
+  </svg>`;
+const UNLOCKED_ICON = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M18 1c-2.76 0-5 2.24-5 5v2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12c1.11 0 2-.89 2-2V10a2 2 0 0 0-2-2h-1V6c0-1.66 1.34-3 3-3s3 1.34 3 3v2h2V6c0-2.76-2.24-5-5-5m-8 12a2 2 0 0 1 2 2c0 1.11-.89 2-2 2a2 2 0 1 1 0-4"/>
+  </svg>`;
+
+let lockToggleInitialized = false;
+function setupLockToggle() {
+    if (lockToggleInitialized) return;
+    document.addEventListener('click', (e) => {
+        const btn = e.target.closest && e.target.closest('.lock-btn');
+        if (!btn) return;
+        const isUnlocking = !btn.classList.contains('unlocked');
+        btn.classList.toggle('unlocked');
+        // swap icon according to state
+        btn.innerHTML = isUnlocking ? UNLOCKED_ICON : LOCKED_ICON;
+    });
+    lockToggleInitialized = true;
+}
+
 function setupPopupToggle(triggerSelector, popupSelector, action = 'toggle') {
     const trigger = document.querySelector(triggerSelector);
     const popup = document.querySelector(popupSelector);
@@ -322,6 +345,8 @@ export function setupListener()
 {
   const path = window.location.pathname;
   const fileName = path.split("/").pop();
+  // Initialize common interactions
+  setupLockToggle();
   const mappingPage = {
     "index.html": null,
     "participant-player-management.html": setupParticipantManagement,
