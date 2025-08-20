@@ -55,6 +55,8 @@ class RegistrationTeamManagement {
             </div>
         `).join('');
 
+        const isActionable = form.status === 'Pending';
+
         formDiv.innerHTML = `
             <div class="form-header-container">
                 <div class="form-header-left">
@@ -63,8 +65,10 @@ class RegistrationTeamManagement {
                     <div class="form-header-status status-${form.status_class}">${form.status}</div>
                 </div>
                 <div class="form-header-right">
-                    <button class="approve-btn" data-form-id="${form.id}">Approve</button>
-                    <button class="reject-btn" data-form-id="${form.id}">Reject</button>
+                    ${isActionable ? `
+                        <button class="approve-btn" data-form-id="${form.id}">Approve</button>
+                        <button class="reject-btn" data-form-id="${form.id}">Reject</button>
+                    ` : ''}
                 </div>
             </div>
             <div class="form-body-container">
@@ -109,6 +113,11 @@ class RegistrationTeamManagement {
     setupEventListeners() {
         // Use event delegation for dynamically created buttons
         document.addEventListener('click', (e) => {
+            // Ignore clicks on disabled approve/reject buttons
+            if ((e.target.classList && (e.target.classList.contains('approve-btn') || e.target.classList.contains('reject-btn'))) && e.target.disabled) {
+                e.preventDefault();
+                return;
+            }
             if (e.target.classList.contains('approve-btn')) {
                 const formId = e.target.getAttribute('data-form-id');
                 this.handleApprove(formId);
@@ -122,6 +131,9 @@ class RegistrationTeamManagement {
     handleApprove(formId) {
         const form = this.registrationForms.find(f => f.id === formId);
         if (form) {
+            if (form.status !== 'Pending') {
+                return;
+            }
             console.log(`Approving team: ${form.team_name}`);
             form.status = 'Approved';
             form.status_class = 'approved';
@@ -133,6 +145,9 @@ class RegistrationTeamManagement {
     handleReject(formId) {
         const form = this.registrationForms.find(f => f.id === formId);
         if (form) {
+            if (form.status !== 'Pending') {
+                return;
+            }
             console.log(`Rejecting team: ${form.team_name}`);
             form.status = 'Rejected';
             form.status_class = 'rejected';
