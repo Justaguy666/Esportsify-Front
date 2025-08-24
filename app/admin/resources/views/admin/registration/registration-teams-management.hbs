@@ -1,0 +1,72 @@
+{{! Copied from registration-teams-management.html }}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Esportsify - Registration management</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/components/header.css">
+        <link rel="stylesheet" href="/styles/layouts/box.css">
+        <link rel="stylesheet" href="/styles/layouts/icon.css">
+        <link rel="stylesheet" href="/styles/layouts/table.css">
+        <link rel="stylesheet" href="/styles/layouts/addElement.css">
+        <link rel="stylesheet" href="/styles/layouts/button.css">
+        <link rel="stylesheet" href="/styles/registration.css">
+    </head>
+    <body>
+        <div id="header-container"></div>
+        <div id="body-container">
+            <!-- Title -->
+            <div class="management-header">
+                <h1 class="management-title">Registration Management</h1>
+                <div class="export-data-container box">
+                    <div class="export-data-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-8 4v-5h2v3h12v-3h2v5z"/>
+                        </svg>
+                    </div>
+                    <div class="export-data-text">
+                        <span>Export</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="participant-button-container">
+                <button style="margin-left: 40px;" class="add-player-btn btn"><span>Players</span></button>
+                <button style="margin-left: 10px;" class="add-team-btn btn selector"><span>Teams</span></button>
+            </div>
+            <div class="registration-header-container box">
+                <div class="multitasking-container">
+                    <div class="filter-container" style="display: grid; grid-template-columns: 0.5fr 1fr 1fr;">
+                        <div class="filter-by-date-container filter-box">
+                            <div class="filter-by-date-text">
+                                <span>All games</span>
+                            </div>
+                            <div class="filter-by-date-icon filter-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="stat-registration-container">
+                            <div><span>Total: <strong style="color: white;"></strong> </span></div>
+                            <div><span>Pending: <strong style="color: #F59E0B;"></strong> </span></div>
+                            <div><span>Approved: <strong style="color: #10B981;"></strong> </span></div>
+                            <div><span>Rejected: <strong style="color: #EF4444;"></strong></span></div>
+                        </div>
+                        <div class="user-search-bar">
+                            <input type="text" class="search-input box" placeholder="Search...">
+                        </div>
+                    </div>
+                </div>
+                <div class="registration-forms-container">
+                    <!-- Dynamic forms will be generated here by JavaScript -->
+                </div>
+            </div>
+        </div>
+        <script type="module" src="/js/main.js"></script>
+        <script type="module" src="/js/pages/registration-team-management.js"></script>
+    </body>
+</html>

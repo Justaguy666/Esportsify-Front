@@ -1,0 +1,92 @@
+{{! Copied from highlight-management.html }}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Esportsify - Highlight management</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/components/header.css">
+        <link rel="stylesheet" href="/styles/layouts/box.css">
+        <link rel="stylesheet" href="/styles/layouts/icon.css">
+        <link rel="stylesheet" href="/styles/layouts/table.css">
+        <link rel="stylesheet" href="/styles/layouts/button.css">
+    </head>
+    <body>
+        <div id="header-container"></div>
+        <div id="body-container">
+            <!-- Title -->
+            <div class="management-header">
+                <h1 class="management-title">Highlight Management</h1>
+                <div class="export-data-container box">
+                    <div class="export-data-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                            <path fill="currentColor" d="m12 16l-5-5l1.4-1.45l2.6 2.6V4h2v8.15l2.6-2.6L17 11zm-8 4v-5h2v3h12v-3h2v5z"/>
+                        </svg>
+                    </div>
+                    <div class="export-data-text">
+                        <span>Export</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Table -->
+            <div class="table-container box">
+                <div class="multitasking-container">
+                    <div class="filter-container">
+                        <div class="user-search-bar">
+                            <input type="text" class="search-input box" placeholder="Search highlight...">
+                        </div>
+                        <div class="filter-by-date-container filter-box">
+                            <div class="filter-by-date-text">
+                                <span>Sort by date</span>
+                            </div>
+                            <div class="filter-by-date-icon filter-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M11.475 14.475L7.85 10.85q-.075-.075-.112-.162T7.7 10.5q0-.2.138-.35T8.2 10h7.6q.225 0 .363.15t.137.35q0 .05-.15.35l-3.625 3.625q-.125.125-.25.175T12 14.7t-.275-.05t-.25-.175"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="filter-by-incr-desc filter-box filter-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M4 18q-.425 0-.712-.288T3 17t.288-.712T4 16h4q.425 0 .713.288T9 17t-.288.713T8 18zm0-5q-.425 0-.712-.288T3 12t.288-.712T4 11h10q.425 0 .713.288T15 12t-.288.713T14 13zm0-5q-.425 0-.712-.288T3 7t.288-.712T4 6h16q.425 0 .713.288T21 7t-.288.713T20 8z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <button class="add-new-entry-btn btn">
+                        <div class="add-btn-icon btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M11 13H5v-2h6V5h2v6h6v2h-6v6h-2z"/>
+                            </svg>
+                        </div>
+                        <span>Upload Highlight</span>
+                    </button>
+                </div>
+                
+                <table>
+                    <thead>
+                      <!-- Cột tiêu đề -->
+                      <tr>
+                        <th>ID</th>
+                        <th>Title</th>
+                        <th>Duration</th>
+                        <th>Last modified</th>
+                        <th>Views</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <!-- Dữ liệu sẽ được render bằng JS -->
+                    </tbody>
+                </table>
+                  
+                <div class="pagination-container">
+                    <div id="pagination-info" class="pagination-info"></div>
+                    <div id="pagination-controls" class="pagination-controls"></div>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="/js/main.js"></script>
+    </body>
+</html>

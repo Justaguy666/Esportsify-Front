@@ -1,0 +1,105 @@
+{{! Copied from participant-team-addiction.html }}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Esportsify - Participant management</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/components/header.css">
+        <link rel="stylesheet" href="/styles/layouts/box.css">
+        <link rel="stylesheet" href="/styles/layouts/icon.css">
+        <link rel="stylesheet" href="/styles/layouts/table.css">
+        <link rel="stylesheet" href="/styles/layouts/addElement.css">
+        <link rel="stylesheet" href="/styles/layouts/button.css">
+    </head>
+    <body>
+        <div id="header-container"></div>
+        <div id="body-container">
+            <div class="form-container box">
+                <div class="title-container">
+                    <h1>Add Team</h1>
+                    <button class="cancel-btn btn">
+                        <div class="cancel-btn-icon btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12z"/>
+                            </svg>
+                        </div>
+                        <span>Cancel</span>
+                    </button>
+                </div>
+
+                <div class="thumbnail-container">
+                    <div class="thumbnail-title"><span>Avatar &#42;</span></div>
+                    <div class="thumbnail-input-container box">
+                        <div class="avatar-input"></div>
+                        <div class="thumbnail-text">
+                            <h2>Upload your avatar here</h2>
+                            <span"><label for="file-upload" class="custom-file-upload" style="color: #3D5AF1">
+                                <h2>Browse file</h2>
+                            </label>
+                            <input id="file-upload" type="file" accept=".jpg,.jpeg,.png" /></span>
+                            <h3>JPG, PNG up to 10MB</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-box-container">
+                    <div class="input-box-title"><span>Name &#42;</span></div>
+                    <input type="text" class="input-bar box" placeholder="Enter name...">
+                </div>
+
+                <div class="format-container">
+                    <div class="format-title"><span>Game &#42;</span></div>
+                    <select class="input-bar box">
+                        <option value="" disabled selected hidden>Select a game...</option>
+                        <option value="BO3">League of legends</option>
+                        <option value="BO5">Valorant</option>
+                        <option value="BO7">Counter strike</option>
+                    </select>
+                </div>
+
+                <div class="history-container">
+                    <div class="history-title"><span>Titles</span></div>
+                    <button class="btn history-add-btn" style="padding: 10px 20px;"><span>Add</span></button>
+                </div>
+
+                <div class="save-btn-container">
+                    <button class="save-btn btn"><span>Save</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="add-history-table pop-up">
+                <div class="popup-content box">
+                    <div class="add-title">
+                        <h2><span>Add title</span></h2>
+                        <div class="add-close-container">
+                            <button class="add-close-btn btn">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                    <path fill="currentColor" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="stat" style="width: 800px; margin: 20px;">
+                        <div class="title-popup-container">
+                            <div class="title-popup-title"><span>Title &#42;</span></div>
+                            <input type="text" class="input-bar box" placeholder="Enter title...">
+                        </div>
+                        <div class="date-popup-container">
+                            <div class="date-popup-title"><span>Date &#42;</span></div>
+                            <input type="date" id="join-date" class="input-bar box">
+                        </div>
+                    </div>
+
+                    <div class="add-popup-btn-container">
+                        <button class="add-btn btn">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="/js/main.js"></script>
+    </body>
+</html>

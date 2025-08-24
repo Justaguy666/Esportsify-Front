@@ -1,0 +1,23 @@
+{
+  "name": "esportsify",
+  "version": "1.0.0",
+  "description": "Admin panel for Esportsify platform",
+  "main": "index.js",
+  "license": "ISC",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "dependencies": {
+    "dotenv": "^17.0.1",
+    "express": "^5.1.0",
+    "express-handlebars": "^8.0.3",
+    "method-override": "^3.0.0",
+    "mongoose": "^8.16.1",
+    "mongoose-delete": "^1.0.2",
+    "mongoose-slug-updater": "^3.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}

@@ -1,0 +1,205 @@
+.registration-header-container 
+{
+    margin: 20px;
+}
+
+.stat-registration-container 
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 50px;
+    gap: 20px;
+}
+
+.user-search-bar
+{
+    width: 100%;
+}
+
+.user-search-bar .search-input
+{
+    width: 100%;
+}
+
+.form-approve-container
+{
+    margin: 40px;
+    background: linear-gradient(to right, #1A1A2E, #16213E);
+    border: 1px solid #3D5AF1;
+    box-shadow: 1px 1px 10px 0px rgba(61, 90, 241, 0.4);
+    
+}
+
+.form-header-container
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    margin: 40px;
+}
+
+.form-header-left
+{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.form-header-tag-name
+{
+    background-color: #3D5AF1;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-header-status.status-pending
+{
+    background-color: #F59E0B;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-header-right button
+{
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.form-header-right button:hover
+{
+    filter: brightness(1.2);
+}
+
+.approve-btn
+{
+    background: linear-gradient(to right, #3D5AF1, #10B981);
+}
+
+.reject-btn
+{
+    background-color: #EF4444;
+}
+
+.participate-details
+{
+    display: flex;
+    align-items: center;
+    margin: 30px;
+    gap: 20px;
+}
+
+.details-container
+{
+    background-color: #0F0F23;
+    padding: 20px;
+    padding-right: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    border-radius: 8px;
+}
+
+.details-title
+{
+    color: #A5B4FC;
+}
+
+.details-name
+{
+    color: white;
+    font-size: 18px;
+}
+
+.manager-details
+{
+    display: flex;
+    align-items: center;
+    margin: 30px;
+    gap: 400px;
+    color: white;
+}
+
+.manager-info
+{
+    margin: 20px;
+    font-size: 16px;
+}
+
+.registration-forms-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    margin: 20px;
+}
+
+.form-header-status.status-approved
+{
+    background-color: #10B981;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.form-header-status.status-rejected
+{
+    background-color: #EF4444;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+.player-details
+{
+    margin: 40px;
+}
+
+.player-list
+{
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.border-bottom
+{
+    height: 1px;
+    background: linear-gradient(to right, #3D5AF1, transparent);
+    border: none;
+}
+
+.player-details
+{
+    margin: 40px;
+}
+
+.player-statistic
+{
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.player-statistic span
+{
+    color: #A5B4FC;
+}
+
+.manager-info span
+{
+    font-weight: bold;
+    color: #A5B4FC;
+}
+
+.manager-info-container
+{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

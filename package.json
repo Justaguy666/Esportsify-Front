@@ -5,6 +5,11 @@
   "scripts": {
     "build": "next build",
     "dev": "next dev",
+    "dev:user": "next dev",
+    "dev:admin": "cd app/admin && npm run dev",
+    "start:user": "next start",
+    "start:admin": "cd app/admin && npm start",
+    "install:admin": "cd app/admin && npm install",
     "lint": "next lint",
     "start": "next start"
   },

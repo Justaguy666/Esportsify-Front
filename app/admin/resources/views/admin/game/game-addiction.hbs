@@ -1,0 +1,70 @@
+{{! Copied from game-addiction.html }}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Esportsify - Game management</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/styles/global.css">
+        <link rel="stylesheet" href="/styles/components/header.css">
+        <link rel="stylesheet" href="/styles/layouts/box.css">
+        <link rel="stylesheet" href="/styles/layouts/icon.css">
+        <link rel="stylesheet" href="/styles/layouts/table.css">
+        <link rel="stylesheet" href="/styles/layouts/addElement.css">
+        <link rel="stylesheet" href="/styles/layouts/button.css">
+    </head>
+    <body>
+        <div id="header-container"></div>
+        <div id="body-container">
+            <div class="form-container box">
+                <div class="title-container">
+                    <h1>Add Game</h1>
+                    <button class="cancel-btn btn">
+                        <div class="cancel-btn-icon btn-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                                <path fill="currentColor" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12z"/>
+                            </svg>
+                        </div>
+                        <span>Cancel</span>
+                    </button>
+                </div>
+
+                <div class="thumbnail-container">
+                    <div class="thumbnail-title"><span>Thumbnail &#42;</span></div>
+                    <div class="thumbnail-input-container box">
+                        <div class="avatar-input"></div>
+                        <div class="thumbnail-text">
+                            <h2>Upload your thumbnail here</h2>
+                            <span"><label for="file-upload" class="custom-file-upload" style="color: #3D5AF1">
+                                <h2>Browse file</h2>
+                            </label>
+                            <input id="file-upload" type="file" accept=".jpg,.jpeg,.png" /></span>
+                            <h3>JPG, PNG up to 10MB</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-box-container">
+                    <div class="input-box-title"><span>Game Name &#42;</span></div>
+                    <input type="text" class="input-bar box" placeholder="Enter game name...">
+                </div>
+
+                <div class="format-container">
+                    <div class="format-title"><span>Match Format &#42;</span></div>
+                    <select class="input-bar box">
+                        <option value="" disabled selected hidden>Select match format...</option>
+                        <option value="BO3">BO3</option>
+                        <option value="BO5">BO5</option>
+                        <option value="BO7">BO7</option>
+                    </select>
+                </div>
+
+                <div class="save-btn-container">
+                    <button class="save-btn btn"><span>Save</span></button>
+                </div>
+            </div>
+        </div>
+        <script type="module" src="/js/main.js"></script>
+    </body>
+</html>
