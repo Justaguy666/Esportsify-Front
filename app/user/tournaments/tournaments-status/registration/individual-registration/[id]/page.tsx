@@ -10,6 +10,7 @@ import { useRouter, useParams } from "next/navigation"
 import GlobalLayout from "@/components/global-layout"
 import GlobalFooter from "@/components/global-footer"
 import { getTournamentById } from "@/data/tournaments"
+import { ROUTES } from "@/lib/constants"
 
 export default function IndividualRegistrationPage() {
   const router = useRouter()
@@ -159,7 +160,7 @@ export default function IndividualRegistrationPage() {
         setSubmitSuccess(false)
         timerRef.current = null
         // Redirect to registration page
-        router.push(`/tournaments/tournaments-status/registration/${tournamentId}`)
+        router.push(`/user/tournaments/tournaments-status/registration/${tournamentId}`)
       }, 5000)
       
     } catch (error) {
@@ -181,7 +182,7 @@ export default function IndividualRegistrationPage() {
         <div className="flex flex-col items-center justify-center min-h-[60vh]">
           <h1 className="text-3xl font-bold mb-4">Tournament Not Found</h1>
           <p className="text-muted-foreground mb-4">The tournament you're looking for doesn't exist.</p>
-          <Button onClick={() => router.push('/tournaments')} className="bg-[#3D5AF1] hover:bg-[#2563EB]">
+          <Button onClick={() => router.push(ROUTES.TOURNAMENTS)} className="bg-[#3D5AF1] hover:bg-[#2563EB]">
             Back to Tournaments
           </Button>
         </div>
@@ -226,7 +227,7 @@ export default function IndividualRegistrationPage() {
                   timerRef.current = null
                 }
                 setSubmitSuccess(false)
-                router.push(`/tournaments/tournaments-status/registration/${tournamentId}`)
+                router.push(`/user/tournaments/tournaments-status/registration/${tournamentId}`)
               }} 
               className="p-1 rounded-full text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
               aria-label="Close"
@@ -440,7 +441,7 @@ export default function IndividualRegistrationPage() {
                       <label className="text-[#A5B4FC] text-lg font-normal leading-relaxed">
                         I agree to the <span 
                           className="text-[#3D5AF1] cursor-pointer font-semibold hover:text-[#10B981] transition-colors"
-                          onClick={() => router.push(`/tournaments/tournaments-status/rules/${tournamentId}`)}
+                          onClick={() => router.push(`/user/tournaments/tournaments-status/rules/${tournamentId}`)}
                         >Terms and Conditions and the Privacy Policy</span>
                       </label>
                     </div>

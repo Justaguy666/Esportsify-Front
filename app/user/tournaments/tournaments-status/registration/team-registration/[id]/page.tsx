@@ -249,7 +249,7 @@ export default function TeamRegistrationPage() {
         setSubmitSuccess(false)
         timerRef.current = null
         // Redirect to registration page
-        router.push(`/tournaments/tournaments-status/registration/${tournamentId}`)
+        router.push(`/user/tournaments/tournaments-status/registration/${tournamentId}`)
       }, 5000)
       
     } catch (error) {
@@ -304,7 +304,7 @@ export default function TeamRegistrationPage() {
                 }
                 setSubmitSuccess(false)
                 // Redirect to registration page
-                router.push(`/tournaments/tournaments-status/registration/${tournamentId}`)
+                router.push(`/user/tournaments/tournaments-status/registration/${tournamentId}`)
               }} 
               className="p-1 rounded-full text-gray-400 hover:bg-white/10 hover:text-white transition-colors"
               aria-label="Close"
@@ -659,7 +659,7 @@ export default function TeamRegistrationPage() {
                         <label className="text-[#A5B4FC] text-lg font-normal leading-relaxed">
                           I agree to the <span 
                             className="text-[#3D5AF1] cursor-pointer font-semibold hover:text-[#10B981] transition-colors"
-                            onClick={() => router.push(`/tournaments/tournaments-status/rules/${tournamentId}`)}
+                            onClick={() => router.push(`/user/tournaments/tournaments-status/rules/${tournamentId}`)}
                           >Terms and Conditions and the Privacy Policy</span>
                         </label>
                         {errors.terms && <p className="text-red-400 text-sm mt-2">{errors.terms}</p>}

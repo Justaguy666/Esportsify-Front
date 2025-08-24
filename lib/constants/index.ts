@@ -8,12 +8,13 @@ export const APP_CONFIG = {
 } as const;
 
 export const ROUTES = {
-  HOME: '/home',
-  LOGIN: '/login',
-  REGISTER: '/register',
-  FORGOT_PASSWORD: '/forgot-password',
-  PROFILE: '/profile',
-  TOURNAMENTS: '/tournaments',
+  HOME: '/user/home',
+  LOGIN: '/user/login',
+  REGISTER: '/user/register',
+  FORGOT_PASSWORD: '/user/forgot-password',
+  PROFILE: '/user/profile',
+  SCHEDULE: '/user/schedule',
+  TOURNAMENTS: '/user/tournaments',
 } as const;
 
 export const STORAGE_KEYS = {
@@ -50,7 +51,7 @@ export const SUPPORTED_GAMES = [
     players: '150M+',
     tournaments: '2,500+',
     image: '/assets/games/lol.jpg',
-    path: '/tournaments/league-of-legends',
+    path: '/user/tournaments/league-of-legends',
   },
   {
     id: 'counter-strike-2',
@@ -58,7 +59,7 @@ export const SUPPORTED_GAMES = [
     players: '30M+',
     tournaments: '1,800+',
     image: '/assets/games/cs2.jpg',
-    path: '/tournaments/counter-strike-2',
+    path: '/user/tournaments/counter-strike-2',
   },
   {
     id: 'valorant',
@@ -66,7 +67,7 @@ export const SUPPORTED_GAMES = [
     players: '15M+',
     tournaments: '1,200+',
     image: '/assets/games/val.jpg',
-    path: '/tournaments/valorant',
+    path: '/user/tournaments/valorant',
   },
   {
     id: 'dota-2',
@@ -74,7 +75,7 @@ export const SUPPORTED_GAMES = [
     players: '12M+',
     tournaments: '900+',
     image: '/assets/games/d2.jpg',
-    path: '/tournaments/dota-2',
+    path: '/user/tournaments/dota-2',
   },
   {
     id: 'overwatch-2',
@@ -82,7 +83,7 @@ export const SUPPORTED_GAMES = [
     players: '35M+',
     tournaments: '800+',
     image: '/assets/games/ow2.png',
-    path: '/tournaments/overwatch-2',
+    path: '/user/tournaments/overwatch-2',
   },
   {
     id: 'starcraft-ii',
@@ -90,7 +91,7 @@ export const SUPPORTED_GAMES = [
     players: '10M+',
     tournaments: '1,000+',
     image: '/assets/games/sc.jpg',
-    path: '/tournaments/starcraft-ii',
+    path: '/user/tournaments/starcraft-ii',
   },
 ] as const;
 

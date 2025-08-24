@@ -133,7 +133,7 @@ export default function TournamentSelection() {
       return
     }
     
-    router.push(`/tournaments/tournaments-status/${statusRoute}/${mappedId}`)
+    router.push(`/user/tournaments/tournaments-status/${statusRoute}/${mappedId}`)
   }
 
   return (

@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Calendar, Clock, MapPin, Users, X, ChevronLeft, ChevronRight, Search, Trash2 } from "lucide-react"
 import GlobalLayout from "@/components/global-layout"
 import GlobalFooter from "@/components/global-footer"
+import { ROUTES } from "@/lib/constants"
 import { useFavorites } from "@/hooks/use-favorites"
 import { getMatchesByTournamentId, computeStatuses } from "@/data/matches"
 import { getTournamentById } from "@/data/tournaments"
@@ -138,7 +139,7 @@ export default function SchedulePage() {
     const tournament = followedTournaments.find(t => t.id === tournamentId)
     if (tournament) {
       const gameSlug = tournament.game.toLowerCase().replace(/\s+/g, '-')
-      router.push(`/tournaments/${gameSlug}`)
+      router.push(`${ROUTES.TOURNAMENTS}/${gameSlug}`)
     }
   }
 
@@ -153,8 +154,8 @@ export default function SchedulePage() {
                 <h1 className="text-3xl font-bold text-white mb-4">Login required</h1>
                 <p className="text-[#A1A1AA] mb-8">Sign in to view and manage your followed tournaments and match schedule.</p>
                 <div className="flex justify-center gap-4">
-                  <Button className="bg-[#5B46E5] hover:bg-[#4F46E5]" onClick={() => router.push('/login')}>Go to Login</Button>
-                  <Button variant="ghost" className="border border-[#3D5AF1] text-white" onClick={() => router.push('/home')}>Back to Home</Button>
+                  <Button className="bg-[#5B46E5] hover:bg-[#4F46E5]" onClick={() => router.push(ROUTES.LOGIN)}>Go to Login</Button>
+                  <Button variant="ghost" className="border border-[#3D5AF1] text-white" onClick={() => router.push(ROUTES.HOME)}>Back to Home</Button>
                 </div>
               </CardContent>
             </Card>

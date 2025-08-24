@@ -13,6 +13,7 @@ import { getTournamentById } from '@/data/tournaments'
 import { useAuthContext } from "@/contexts/auth-context"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { getAvatarInitials } from "@/data/users"
+import { ROUTES } from "@/lib/constants"
 
 interface GlobalHeaderProps {
   onToggleSidebar?: () => void
@@ -73,16 +74,16 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
     return 'league-of-legends' // default fallback
   }
 
-  const isOnTournamentDetailPage = pathname.includes('/tournaments/tournaments-status/live/') || 
-    pathname.includes('/tournaments/tournaments-status/active/') || 
-    pathname.includes('/tournaments/tournaments-status/upcoming/') || 
-    pathname.includes('/tournaments/tournaments-status/registration/') || 
-    pathname.includes('/tournaments/tournaments-status/completed/') ||
-    pathname.includes('/tournaments/tournaments-status/news/') ||
-    pathname.includes('/tournaments/tournaments-status/matches/') ||
-    pathname.includes('/tournaments/tournaments-status/highlights/') ||
-    pathname.includes('/tournaments/tournaments-status/rules/') ||
-    pathname.includes('/tournaments/tournaments-status/participants/')
+  const isOnTournamentDetailPage = pathname.includes('/user/tournaments/tournaments-status/live/') || 
+    pathname.includes('/user/tournaments/tournaments-status/active/') || 
+    pathname.includes('/user/tournaments/tournaments-status/upcoming/') || 
+    pathname.includes('/user/tournaments/tournaments-status/registration/') || 
+    pathname.includes('/user/tournaments/tournaments-status/completed/') ||
+    pathname.includes('/user/tournaments/tournaments-status/news/') ||
+    pathname.includes('/user/tournaments/tournaments-status/matches/') ||
+    pathname.includes('/user/tournaments/tournaments-status/highlights/') ||
+    pathname.includes('/user/tournaments/tournaments-status/rules/') ||
+    pathname.includes('/user/tournaments/tournaments-status/participants/')
 
   // Handle click outside to close dropdowns
   useEffect(() => {
@@ -118,18 +119,18 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
   const handleBackClick = () => {
     if (tournamentId) {
       const gameSlug = getGameSlugFromTournamentId(tournamentId)
-      router.push(`/tournaments/${gameSlug}`)
-    } else if (pathname.includes('/tournaments/tournaments-status/')) {
+      router.push(`${ROUTES.TOURNAMENTS}/${gameSlug}`)
+    } else if (pathname.includes('/user/tournaments/tournaments-status/')) {
       const pathSegments = pathname.split('/')
       const tournamentIdFromPath = pathSegments[pathSegments.length - 1] || ''
       if (tournamentIdFromPath) {
         const gameSlug = getGameSlugFromTournamentId(tournamentIdFromPath)
-        router.push(`/tournaments/${gameSlug}`)
+        router.push(`${ROUTES.TOURNAMENTS}/${gameSlug}`)
       } else {
-        router.push('/home')
+        router.push(ROUTES.HOME)
       }
     } else {
-      router.push('/home')
+      router.push(ROUTES.HOME)
     }
   }
 
@@ -148,43 +149,43 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
         const currentTournamentId = tournamentId || getCurrentTournamentId()
         if (currentTournamentId) {
           // Determine tournament status from URL or find the appropriate status page
-          if (pathname.includes('/tournaments/tournaments-status/news/') || 
-              pathname.includes('/tournaments/tournaments-status/matches/') ||
-              pathname.includes('/tournaments/tournaments-status/highlights/') ||
-              pathname.includes('/tournaments/tournaments-status/rules/') ||
-              pathname.includes('/tournaments/tournaments-status/participants/')) {
+          if (pathname.includes('/user/tournaments/tournaments-status/news/') || 
+              pathname.includes('/user/tournaments/tournaments-status/matches/') ||
+              pathname.includes('/user/tournaments/tournaments-status/highlights/') ||
+              pathname.includes('/user/tournaments/tournaments-status/rules/') ||
+              pathname.includes('/user/tournaments/tournaments-status/participants/')) {
             // If on a feature page, determine status from tournament ID or default to live
             if (currentTournamentId.includes('live') || pathname.includes('/live/')) {
-              router.push(`/tournaments/tournaments-status/live/${currentTournamentId}`)
+              router.push(`/user/tournaments/tournaments-status/live/${currentTournamentId}`)
             } else if (currentTournamentId.includes('active') || pathname.includes('/active/')) {
-              router.push(`/tournaments/tournaments-status/active/${currentTournamentId}`)
+              router.push(`/user/tournaments/tournaments-status/active/${currentTournamentId}`)
             } else if (currentTournamentId.includes('upcoming') || pathname.includes('/upcoming/')) {
-              router.push(`/tournaments/tournaments-status/upcoming/${currentTournamentId}`)
+              router.push(`/user/tournaments/tournaments-status/upcoming/${currentTournamentId}`)
             } else if (currentTournamentId.includes('registration') || pathname.includes('/registration/')) {
-              router.push(`/tournaments/tournaments-status/registration/${currentTournamentId}`)
+              router.push(`/user/tournaments/tournaments-status/registration/${currentTournamentId}`)
             } else if (currentTournamentId.includes('completed') || pathname.includes('/completed/')) {
-              router.push(`/tournaments/tournaments-status/completed/${currentTournamentId}`)
+              router.push(`/user/tournaments/tournaments-status/completed/${currentTournamentId}`)
             } else {
               // Default to live for most tournaments
-              router.push(`/tournaments/tournaments-status/live/${currentTournamentId}`)
+              router.push(`/user/tournaments/tournaments-status/live/${currentTournamentId}`)
             }
           } else if (pathname.includes('/live/')) {
-            router.push(`/tournaments/tournaments-status/live/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/live/${currentTournamentId}`)
           } else if (pathname.includes('/active/')) {
-            router.push(`/tournaments/tournaments-status/active/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/active/${currentTournamentId}`)
           } else if (pathname.includes('/upcoming/')) {
-            router.push(`/tournaments/tournaments-status/upcoming/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/upcoming/${currentTournamentId}`)
           } else if (pathname.includes('/registration/')) {
-            router.push(`/tournaments/tournaments-status/registration/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/registration/${currentTournamentId}`)
           } else if (pathname.includes('/completed/')) {
-            router.push(`/tournaments/tournaments-status/completed/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/completed/${currentTournamentId}`)
           } else {
             // Default to live status page
-            router.push(`/tournaments/tournaments-status/live/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/live/${currentTournamentId}`)
           }
         }
       },
-      isActive: pathname.includes('/tournaments/tournaments-status/live/') || pathname.includes('/tournaments/tournaments-status/active/') || pathname.includes('/tournaments/tournaments-status/upcoming/') || pathname.includes('/tournaments/tournaments-status/registration/') || pathname.includes('/tournaments/tournaments-status/completed/')
+      isActive: pathname.includes('/user/tournaments/tournaments-status/live/') || pathname.includes('/user/tournaments/tournaments-status/active/') || pathname.includes('/user/tournaments/tournaments-status/upcoming/') || pathname.includes('/user/tournaments/tournaments-status/registration/') || pathname.includes('/user/tournaments/tournaments-status/completed/')
     },
     {
       id: 'news',
@@ -193,7 +194,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
       onClick: () => {
         const currentTournamentId = tournamentId || getCurrentTournamentId()
         if (currentTournamentId) {
-          router.push(`/tournaments/tournaments-status/news/${currentTournamentId}`)
+          router.push(`/user/tournaments/tournaments-status/news/${currentTournamentId}`)
         }
       },
       isActive: pathname.includes('/news')
@@ -206,7 +207,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
         if (!isRegistrationTournament) {
           const currentTournamentId = tournamentId || getCurrentTournamentId()
           if (currentTournamentId) {
-            router.push(`/tournaments/tournaments-status/matches/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/matches/${currentTournamentId}`)
           }
         } else {
           console.log('Navigation blocked: Tournament is in REGISTRATION status')
@@ -223,7 +224,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
         if (!isRegistrationTournament) {
           const currentTournamentId = tournamentId || getCurrentTournamentId()
           if (currentTournamentId) {
-            router.push(`/tournaments/tournaments-status/highlights/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/highlights/${currentTournamentId}`)
           }
         }
       },
@@ -237,7 +238,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
       onClick: () => {
         const currentTournamentId = tournamentId || getCurrentTournamentId()
         if (currentTournamentId) {
-          router.push(`/tournaments/tournaments-status/rules/${currentTournamentId}`)
+          router.push(`/user/tournaments/tournaments-status/rules/${currentTournamentId}`)
         }
       },
       isActive: pathname.includes('/rules')
@@ -250,7 +251,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
         if (!isRegistrationTournament) {
           const currentTournamentId = tournamentId || getCurrentTournamentId()
           if (currentTournamentId) {
-            router.push(`/tournaments/tournaments-status/participants/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/participants/${currentTournamentId}`)
           }
         }
       },
@@ -282,7 +283,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
             {/* Logo */}
             <div
               className="flex items-center bg-[#5B46E5]/20 rounded-2xl px-6 py-3 border border-[#5B46E5]/30 cursor-pointer hover:bg-[#5B46E5]/30 transition-all duration-300 ease-in-out"
-              onClick={() => router.push("/home")}
+              onClick={() => router.push(ROUTES.HOME)}
             >
               <img src="/assets/logo.png" alt="ESPORTSIFY Logo" className="w-6 h-5 mr-3" />
               <span className="text-[#5B46E5] font-bold text-xl">E</span>
@@ -398,7 +399,7 @@ export function GlobalHeader({ onToggleSidebar, sidebarOpen = true, tournamentId
                 // Login button for guests
                 <Button
                   className="px-6 py-3 bg-gradient-to-r from-[#3D5AF1] to-[#7C3AED] hover:from-[#4F46E5] hover:to-[#8B5CF6] text-white rounded-xl font-semibold shadow-lg transition-all duration-300 ease-in-out"
-                  onClick={() => router.push('/login')}
+                  onClick={() => router.push(ROUTES.LOGIN)}
                 >
                   Login
                 </Button>

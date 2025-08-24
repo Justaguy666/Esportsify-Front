@@ -3,6 +3,7 @@
 import { useRouter, usePathname } from "next/navigation"
 import { ArrowLeft, Info, Newspaper, Plus, Zap, Users, FileText } from "lucide-react"
 import { getTournamentById } from '@/data/tournaments'
+import { ROUTES } from "@/lib/constants"
 
 interface TournamentNavigationProps {
   tournamentId?: string
@@ -44,11 +45,8 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
     return pathSegments[pathSegments.length - 1] || ''
   }
 
-  const isOnTournamentDetailPage = pathname.includes('/tournaments/live/') || 
-    pathname.includes('/tournaments/active/') || 
-    pathname.includes('/tournaments/upcoming/') || 
-    pathname.includes('/tournaments/registration/') || 
-    pathname.includes('/tournaments/completed/')
+  // Any tournaments status page under /user/tournaments/tournaments-status/*
+  const isOnTournamentDetailPage = pathname.includes('/user/tournaments/tournaments-status/')
 
   // Handle back navigation
   const handleBackClick = () => {
@@ -57,28 +55,29 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
     } else if (tournamentId) {
       // Extract game slug from tournament ID
       const gameSlug = getGameSlugFromTournamentId(tournamentId)
-      router.push(`/tournaments/${gameSlug}`)
-    } else if (pathname.includes('/tournaments/tournaments-status/')) {
+      router.push(`${ROUTES.TOURNAMENTS}/${gameSlug}`)
+    } else if (pathname.includes('/user/tournaments/tournaments-status/')) {
       // For tournament detail pages, extract game from tournament ID in URL
       const pathSegments = pathname.split('/')
       const tournamentIdFromPath = pathSegments[pathSegments.length - 1] || ''
       if (tournamentIdFromPath) {
         const gameSlug = getGameSlugFromTournamentId(tournamentIdFromPath)
-        router.push(`/tournaments/${gameSlug}`)
+        router.push(`${ROUTES.TOURNAMENTS}/${gameSlug}`)
       } else {
-        router.push('/home')
+        router.push(ROUTES.HOME)
       }
-    } else if (pathname.includes('/tournaments/')) {
+    } else if (pathname.includes('/user/tournaments/')) {
       // For other tournament pages, try to extract game slug from path
-      const pathSegments = pathname.split('/')
-      const gameSlug = pathSegments[2] || ''
-      if (gameSlug && gameSlug !== 'tournaments' && gameSlug !== 'tournaments-status') {
-        router.push(`/tournaments/${gameSlug}`)
+      const segments = pathname.split('/')
+      const tournamentsIndex = segments.indexOf('tournaments')
+      const gameSlug = tournamentsIndex >= 0 ? segments[tournamentsIndex + 1] : ''
+      if (gameSlug && !['tournaments', 'tournaments-status'].includes(gameSlug)) {
+        router.push(`${ROUTES.TOURNAMENTS}/${gameSlug}`)
       } else {
-        router.push('/home')
+        router.push(ROUTES.HOME)
       }
     } else {
-      router.push('/home')
+      router.push(ROUTES.HOME)
     }
   }
 
@@ -96,9 +95,9 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
       icon: Info,
       onClick: () => {
         if (isOnTournamentDetailPage && tournamentId) {
-          router.push(`/about-tournament?tournament=${tournamentId}`)
+          router.push(`/user/about-tournament?tournament=${tournamentId}`)
         } else {
-          router.push('/about-tournament')
+          router.push('/user/about-tournament')
         }
       },
       isActive: pathname.includes('/about-tournament') || isOnTournamentDetailPage
@@ -110,7 +109,7 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
       onClick: () => {
         const currentTournamentId = tournamentId || getCurrentTournamentId()
         if (currentTournamentId) {
-          router.push(`/tournaments/tournaments-status/news/${currentTournamentId}`)
+          router.push(`/user/tournaments/tournaments-status/news/${currentTournamentId}`)
         }
       },
       isActive: pathname.includes('/news')
@@ -123,7 +122,7 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
         if (!isRegistrationTournament) {
           const currentTournamentId = tournamentId || getCurrentTournamentId()
           if (currentTournamentId) {
-            router.push(`/tournaments/tournaments-status/matches/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/matches/${currentTournamentId}`)
           }
         }
       },
@@ -138,7 +137,7 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
         if (!isRegistrationTournament) {
           const currentTournamentId = tournamentId || getCurrentTournamentId()
           if (currentTournamentId) {
-            router.push(`/tournaments/tournaments-status/highlights/${currentTournamentId}`)
+            router.push(`/user/tournaments/tournaments-status/highlights/${currentTournamentId}`)
           }
         }
       },
@@ -152,7 +151,7 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
       onClick: () => {
         const currentTournamentId = tournamentId || getCurrentTournamentId()
         if (currentTournamentId) {
-          router.push(`/tournaments/tournaments-status/rules/${currentTournamentId}`)
+          router.push(`/user/tournaments/tournaments-status/rules/${currentTournamentId}`)
         }
       },
       isActive: pathname.includes('/rules')
@@ -167,7 +166,7 @@ export function TournamentNavigation({ tournamentId, gameName, currentPage, onBa
           const currentTournamentId = tournamentId || getCurrentTournamentId()
           if (currentTournamentId) {
             // Navigate directly to team-participants to avoid redirector
-            router.push(`/tournaments/tournaments-status/participants/${currentTournamentId}/team-participants`)
+            router.push(`/user/tournaments/tournaments-status/participants/${currentTournamentId}/team-participants`)
           }
         }
       },

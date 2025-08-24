@@ -55,15 +55,15 @@ export function useGlobalSearch() {
         // Determine tournament path based on status
         let tournamentPath = ''
         if (tournament.status === 'LIVE') {
-          tournamentPath = `/tournaments/tournaments-status/live/${tournament.id}`
+          tournamentPath = `/user/tournaments/tournaments-status/live/${tournament.id}`
         } else if (tournament.status === 'ACTIVE') {
-          tournamentPath = `/tournaments/tournaments-status/active/${tournament.id}`
+          tournamentPath = `/user/tournaments/tournaments-status/active/${tournament.id}`
         } else if (tournament.status === 'UPCOMING') {
-          tournamentPath = `/tournaments/tournaments-status/upcoming/${tournament.id}`
+          tournamentPath = `/user/tournaments/tournaments-status/upcoming/${tournament.id}`
         } else if (tournament.status === 'REGISTRATION') {
-          tournamentPath = `/tournaments/tournaments-status/registration/${tournament.id}`
+          tournamentPath = `/user/tournaments/tournaments-status/registration/${tournament.id}`
         } else if (tournament.status === 'COMPLETED') {
-          tournamentPath = `/tournaments/tournaments-status/completed/${tournament.id}`
+          tournamentPath = `/user/tournaments/tournaments-status/completed/${tournament.id}`
         }
 
         results.push({

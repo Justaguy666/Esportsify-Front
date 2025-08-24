@@ -97,7 +97,7 @@ export default function TournamentNewsPage() {
                       <span className="text-[#A5B4FC] text-[16px]">{item.date}</span>
                       <span 
                         className="text-[#10B981] font-medium text-[16px] cursor-pointer hover:underline"
-                        onClick={() => router.push(`/tournaments/tournaments-status/news/${tournamentId}/${item.id}`)}
+                        onClick={() => router.push(`/user/tournaments/tournaments-status/news/${tournamentId}/${item.id}`)}
                       >
                         Read More →
                       </span>

@@ -19,7 +19,7 @@ export default function NewsDetailPage() {
   // Handle browser back button to redirect to news page
   useEffect(() => {
     const handlePopState = () => {
-      router.push(`/tournaments/tournaments-status/news/${tournamentId}`)
+      router.push(`/user/tournaments/tournaments-status/news/${tournamentId}`)
     }
 
     // Push current state to history
@@ -175,7 +175,7 @@ export default function NewsDetailPage() {
           <div className="text-center">
             <h1 className="text-white text-2xl mb-4">News Article Not Found</h1>
             <Button 
-              onClick={() => router.push(`/tournaments/tournaments-status/news/${tournamentId}`)}
+              onClick={() => router.push(`/user/tournaments/tournaments-status/news/${tournamentId}`)}
               className="bg-[#3D5AF1] hover:bg-[#3D5AF1]/80"
             >
               Back to News

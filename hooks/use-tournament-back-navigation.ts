@@ -1,5 +1,8 @@
+"use client"
+
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { ROUTES } from '@/lib/constants'
 
 export function useTournamentBackNavigation(tournamentId: string) {
   const router = useRouter()
@@ -16,7 +19,7 @@ export function useTournamentBackNavigation(tournamentId: string) {
     }
 
     const gameSlug = getGameSlugFromTournamentId(tournamentId)
-    const backUrl = `/tournaments/${gameSlug}`
+    const backUrl = `${ROUTES.TOURNAMENTS}/${gameSlug}`
 
     // Push a custom entry to history stack when component mounts
     window.history.pushState({ customBack: true, backUrl }, '', window.location.href)

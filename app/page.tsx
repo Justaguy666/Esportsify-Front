@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import { authService } from "@/lib/auth/auth-service"
+import { ROUTES } from "@/lib/constants"
 
 export default function RootPage() {
   const router = useRouter()
@@ -10,7 +10,7 @@ export default function RootPage() {
   useEffect(() => {
     // Previously redirected guests to /login. For guest mode, always go to /home.
     // Authenticated users will see their personalized UI; guests will browse with limited features.
-    router.replace("/home")
+    router.replace(ROUTES.HOME)
   }, [router])
 
   // Show loading state during redirect

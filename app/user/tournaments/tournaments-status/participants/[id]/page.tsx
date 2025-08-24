@@ -18,9 +18,9 @@ export default function TournamentParticipantsPage() {
   useEffect(() => {
     if (tournament) {
       if (tournament.registrationType === 'individual') {
-        router.replace(`/tournaments/tournaments-status/participants/${tournamentId}/individual-participants`)
+        router.replace(`/user/tournaments/tournaments-status/participants/${tournamentId}/individual-participants`)
       } else if (tournament.registrationType === 'team') {
-        router.replace(`/tournaments/tournaments-status/participants/${tournamentId}/team-participants`)
+        router.replace(`/user/tournaments/tournaments-status/participants/${tournamentId}/team-participants`)
       }
     }
   }, [tournament, tournamentId, router])

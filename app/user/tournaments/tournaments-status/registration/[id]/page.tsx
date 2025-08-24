@@ -157,9 +157,9 @@ export default function TournamentRegistrationPage() {
                     onClick={() => {
                       if (!tournament) return;
                       if (tournament.registrationType === 'team') {
-                        router.push(`/tournaments/tournaments-status/registration/team-registration/${tournament.id}`);
+                        router.push(`/user/tournaments/tournaments-status/registration/team-registration/${tournament.id}`);
                       } else {
-                        window.location.href = `/tournaments/tournaments-status/registration/individual-registration/${tournament.id}`;
+                        router.push(`/user/tournaments/tournaments-status/registration/individual-registration/${tournament.id}`);
                       }
                     }}
                   >

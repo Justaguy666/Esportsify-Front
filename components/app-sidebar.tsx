@@ -5,6 +5,7 @@ import { Calendar, Gamepad2, LogOut, Edit3 } from "lucide-react"
 import { useSidebarLogic } from "@/hooks/use-sidebar-logic"
 import { useAuthContext } from "@/contexts/auth-context"
 import { useFavorites } from '@/hooks/use-favorites'
+import { ROUTES } from "@/lib/constants"
 
 
 interface AppSidebarProps {
@@ -29,7 +30,7 @@ export function AppSidebar({ tournamentSelected = false, isOpen = true, onToggle
   const handleLogout = () => {
     logout()
     clearFavorites()
-    router.push('/home')
+    router.push(ROUTES.HOME)
   }
 
   if (!mounted) {
@@ -110,38 +111,38 @@ export function AppSidebar({ tournamentSelected = false, isOpen = true, onToggle
           {/* Games Menu Item */}
           <div 
             className={`flex items-center p-6 rounded-2xl cursor-pointer transition-all duration-300 ease-in-out ${
-              pathname === '/home' ? '' : 'hover:bg-white/5 hover:scale-105 hover:shadow-lg'
+              pathname === ROUTES.HOME ? '' : 'hover:bg-white/5 hover:scale-105 hover:shadow-lg'
             }`}
             style={{
-              background: pathname === '/home' 
+              background: pathname === ROUTES.HOME 
                 ? 'linear-gradient(90deg, #3D5AF1 0%, #7C3AED 100%)' 
                 : 'transparent',
-              boxShadow: pathname === '/home' 
+              boxShadow: pathname === ROUTES.HOME 
                 ? '0px 4.63px 18.521px rgba(61, 90, 241, 0.4)' 
                 : 'none'
             }}
             onMouseEnter={(e) => {
-              if (pathname !== '/home') {
+              if (pathname !== ROUTES.HOME) {
                 e.currentTarget.style.boxShadow = '0px 2px 8px rgba(61, 90, 241, 0.2)';
               }
             }}
             onMouseLeave={(e) => {
-              if (pathname !== '/home') {
+              if (pathname !== ROUTES.HOME) {
                 e.currentTarget.style.boxShadow = 'none';
               }
             }}
-            onClick={() => router.push('/home')}
+            onClick={() => router.push(ROUTES.HOME)}
           >
             <Gamepad2 
               className="w-7 h-7 mr-5"
               style={{ 
-                color: pathname === '/home' ? '#FFFFFF' : '#A5B4FC' 
+                color: pathname === ROUTES.HOME ? '#FFFFFF' : '#A5B4FC' 
               }}
             />
             <span 
               className="font-semibold text-xl"
               style={{ 
-                color: pathname === '/home' ? '#FFFFFF' : '#A5B4FC',
+                color: pathname === ROUTES.HOME ? '#FFFFFF' : '#A5B4FC',
                 fontFamily: 'Inter'
               }}
             >
@@ -152,40 +153,40 @@ export function AppSidebar({ tournamentSelected = false, isOpen = true, onToggle
           {/* Schedule Menu Item */}
           <div 
             className={`flex items-center p-6 rounded-2xl transition-all duration-300 ease-in-out ${
-              pathname.includes('/schedule') 
+              pathname.includes(ROUTES.SCHEDULE) 
                 ? '' 
                 : (isAuthenticated ? 'cursor-pointer hover:bg-white/5 hover:scale-105 hover:shadow-lg' : 'opacity-50 cursor-not-allowed')
             }`}
             style={{
-              background: pathname.includes('/schedule') 
+              background: pathname.includes(ROUTES.SCHEDULE) 
                 ? 'linear-gradient(90deg, #3D5AF1 0%, #7C3AED 100%)' 
                 : 'transparent',
-              boxShadow: pathname.includes('/schedule') 
+              boxShadow: pathname.includes(ROUTES.SCHEDULE) 
                 ? '0px 4.63px 18.521px rgba(61, 90, 241, 0.4)' 
                 : 'none'
             }}
             onMouseEnter={(e) => {
-              if (!pathname.includes('/schedule') && isAuthenticated) {
+              if (!pathname.includes(ROUTES.SCHEDULE) && isAuthenticated) {
                 e.currentTarget.style.boxShadow = '0px 2px 8px rgba(61, 90, 241, 0.2)';
               }
             }}
             onMouseLeave={(e) => {
-              if (!pathname.includes('/schedule') && isAuthenticated) {
+              if (!pathname.includes(ROUTES.SCHEDULE) && isAuthenticated) {
                 e.currentTarget.style.boxShadow = 'none';
               }
             }}
-            onClick={isAuthenticated ? () => router.push('/schedule') : undefined}
+            onClick={isAuthenticated ? () => router.push(ROUTES.SCHEDULE) : undefined}
           >
             <Calendar 
               className="w-7 h-7 mr-5"
               style={{ 
-                color: pathname.includes('/schedule') ? '#FFFFFF' : '#A5B4FC' 
+                color: pathname.includes(ROUTES.SCHEDULE) ? '#FFFFFF' : '#A5B4FC' 
               }}
             />
             <span 
               className="font-semibold text-xl"
               style={{ 
-                color: pathname.includes('/schedule') ? '#FFFFFF' : '#A5B4FC',
+                color: pathname.includes(ROUTES.SCHEDULE) ? '#FFFFFF' : '#A5B4FC',
                 fontFamily: 'Inter'
               }}
             >

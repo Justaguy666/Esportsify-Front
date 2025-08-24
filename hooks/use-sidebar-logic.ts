@@ -16,7 +16,7 @@ export function useSidebarLogic(tournamentSelected: boolean = false) {
   }, [])
 
   // Navigation state calculations - simplified for new structure
-  const isOnTournamentContext = pathname.includes('/tournaments/')
+  const isOnTournamentContext = pathname.includes('/user/tournaments/')
   
   // Tournament navigation should show when tournament is selected and we're in tournament context
   const shouldShowTournamentNav = tournamentSelected && isOnTournamentContext
