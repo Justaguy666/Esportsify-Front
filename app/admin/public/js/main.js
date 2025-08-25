@@ -1,5 +1,5 @@
-import { setupListener } from "./setup.js";
-import { renderTable } from "./table.js";
+import { setupListener } from "/js/setup.js";
+// import { renderTable } from "./table.js";
 
 // main.js
 (function setGlobalFavicons() {
@@ -30,6 +30,6 @@ import { renderTable } from "./table.js";
 })();
 
 document.addEventListener('DOMContentLoaded', async () => {
-  await renderTable();
+  // await renderTable();
   setupListener();
 });

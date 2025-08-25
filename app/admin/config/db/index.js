@@ -7,7 +7,6 @@ async function connect() {
             useUnifiedTopology: true,
             serverSelectionTimeoutMS: 30000,
             socketTimeoutMS: 45000,
-            bufferMaxEntries: 0,
             maxPoolSize: 10
         });
         console.log('Connected to MongoDB');

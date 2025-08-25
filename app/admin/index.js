@@ -7,9 +7,14 @@ const mongoose = require('mongoose');
 const db = require('./config/db');
 const app = express();
 const port = 3001;
+const cors = require("cors");
+
+// Cho phép frontend trên localhost:3000 gọi API
+app.use(cors({ origin: "http://localhost:3000" }));
 
 //Connect Database
 db.connect();
+
 
 // Override methods
 app.use(methodOverride('_method'));

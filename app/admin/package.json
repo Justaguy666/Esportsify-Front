@@ -5,7 +5,7 @@
   "main": "index.js",
   "license": "ISC",
   "scripts": {
-    "start": "node index.js",
+    "start": "node --watch --inspect index.js",
     "dev": "nodemon index.js"
   },
   "dependencies": {

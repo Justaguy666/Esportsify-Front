@@ -5,8 +5,10 @@ const ApiController = require('../app/controllers/ApiController');
 
 // Example API routes
 router.get('/users', ApiController.getUsers);
+router.get('/admins', ApiController.getAdmins);
 router.get('/games', ApiController.getGames);
 router.get('/participants', ApiController.getParticipants);
 router.get('/tournaments', ApiController.getTournaments);
+router.post("/auth/login", ApiController.login);
 
 module.exports = router;

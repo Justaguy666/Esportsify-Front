@@ -13,5 +13,19 @@ router.get('/registration/registration-players-management', AdminController.regi
 router.get('/rule/rule-management', AdminController.ruleManagement);
 router.get('/news/news-management', AdminController.newsManagement);
 router.get('/highlight/highlight-management', AdminController.highlightManagement);
-
+router.get('/game/game-addiction', AdminController.gameAddiction);
+router.get('/highlight/highlight-addiction', AdminController.highlightAddiction);
+router.get('/match/match-players-addiction', AdminController.matchPlayersAddiction);
+router.get('/match/match-teams-management', AdminController.matchTeamsManagement);
+router.get('/match/match-teams-addiction', AdminController.matchTeamsAddiction);
+router.get('/news/news-addiction', AdminController.newsAddiction);
+router.get('/participant/participant-player-addiction', AdminController.participantPlayerAddiction);
+router.get('/participant/participant-team-management', AdminController.participantTeamManagement);
+router.get('/participant/participant-team-addiction', AdminController.participantTeamAddiction);
+router.get('/registration/registration-players-addiction', AdminController.registrationPlayersAddiction);
+router.get('/registration/registration-teams-management', AdminController.registrationTeamsManagement);
+router.get('/registration/registration-teams-addiction', AdminController.registrationTeamsAddiction);
+router.get('/rule/rule-addiction', AdminController.ruleAddiction);
+router.get('/tournament/tournament-addiction', AdminController.tournamentAddiction);
+// router.get("/", AdminController.getAdmins);
 module.exports = router;

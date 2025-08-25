@@ -2,7 +2,16 @@ function setupNavigationButton(selector, targetUrl) {
     const button = document.querySelector(selector);
     if (button) {
         button.addEventListener('click', () => {
-            window.location.href = targetUrl;
+            // window.location.href = targetUrl;
+            const currentPath = window.location.pathname;
+            // Lấy phần sau /admin/
+            const subPath = currentPath.split("/admin/")[1]?.split("/")[0]; // ví dụ: "game"
+            
+            if (subPath) {
+                window.location.href = `/admin/${subPath}/${targetUrl}`;
+            } else {
+                window.location.href = '/admin/' + targetUrl;
+            }
         });
     }
 }

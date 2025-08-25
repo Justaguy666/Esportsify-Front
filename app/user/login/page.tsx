@@ -25,51 +25,113 @@ export default function LoginPage() {
   const [validationErrors, setValidationErrors] = useState<string[]>([])
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    clearError()
-    setValidationErrors([])
+  e.preventDefault();
+  clearError();
+  setValidationErrors([]);
 
-    try {
-      if (activeTab === "login") {
-        const validation = validateLoginForm({
-          email: formData.email,
-          password: formData.password,
-        })
-        
-        if (!validation.isValid) {
-          setValidationErrors(validation.errors.map(err => err.message))
-          return
-        }
-        
-        await login({
-          email: formData.email,
-          password: formData.password,
-        })
-      } else {
-        const validation = validateRegisterForm({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword,
-        })
-        
-        if (!validation.isValid) {
-          setValidationErrors(validation.errors.map(err => err.message))
-          return
-        }
-        
-        await register({
-          username: formData.username,
-          email: formData.email,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword,
-        })
+
+  try {
+    if (activeTab === "login") {
+      const validation = validateLoginForm({
+        email: formData.email,
+        password: formData.password,
+      });
+
+      if (!validation.isValid) {
+        setValidationErrors(validation.errors.map(err => err.message));
+        return;
       }
-    } catch (err) {
-      // Error is handled by the auth hook
-      console.error('Authentication error:', err)
+
+      const response = await fetch("http://localhost:3001/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: formData.email,
+          password: formData.password,
+        }),
+      });
+
+      const data = await response.json();
+      if (!response.ok) {
+        setValidationErrors([data.error || "Login failed"]);
+        return;
+      }
+
+
+      // Lưu user vào localStorage hoặc context **bằng tay**
+      localStorage.setItem("user", JSON.stringify(data));
+
+      // Check role để redirect
+      if (data.role === "admin") {
+        window.location.assign("http://localhost:3001/admin");
+        // router.push("/admin");
+      } 
+      // else {
+      //   router.push("/user/home"); // hoặc trang user
+      // }
     }
+    // ... phần register giữ nguyên
+  } catch (err) {
+    console.error("Authentication error:", err);
   }
+};
+  // const handleSubmit = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+  //   clearError()
+  //   setValidationErrors([])
+
+  //   try {
+  //     if (activeTab === "login") {
+  //       const validation = validateLoginForm({
+  //         email: formData.email,
+  //         password: formData.password,
+  //       })
+        
+  //       if (!validation.isValid) {
+  //         setValidationErrors(validation.errors.map(err => err.message))
+  //         return
+  //       }
+        
+  //       await login({
+  //         email: formData.email,
+  //         password: formData.password,
+  //       })
+
+  //       // --- Admin check logic ---
+  //       // Fetch admin account IDs from API
+  //       const response = await fetch("/api/admins");
+  //       const adminAccountIds = await response.json();
+  //       // Get user from context after login
+  //       const { user } = useAuthContext();
+  //       if (user && adminAccountIds.includes(user._id)) {
+  //         router.push("/admin");
+  //         return;
+  //       }
+  //     } else {
+  //       const validation = validateRegisterForm({
+  //         username: formData.username,
+  //         email: formData.email,
+  //         password: formData.password,
+  //         confirmPassword: formData.confirmPassword,
+  //       })
+        
+  //       if (!validation.isValid) {
+  //         setValidationErrors(validation.errors.map(err => err.message))
+  //         return
+  //       }
+        
+  //       await register({
+  //         username: formData.username,
+  //         email: formData.email,
+  //         password: formData.password,
+  //         confirmPassword: formData.confirmPassword,
+  //       })
+  //     }
+  //   } catch (err) {
+  //     // Error is handled by the auth hook
+  //     console.error('Authentication error:', err)
+  //   }
+  // }
 
   return (
     <div className="min-h-screen bg-[#0A0E1A] text-white relative overflow-hidden">
